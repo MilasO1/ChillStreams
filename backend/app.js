@@ -20,7 +20,7 @@ const app = express();
 app.use(morganMiddleware);
 app.use(cors({ 
   credentials: true, 
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000' 
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173' 
 }));
 app.use(express.json({ limit: '500mb' })); // Increased payload limit for video uploads
 app.use(express.urlencoded({ extended: true }));
