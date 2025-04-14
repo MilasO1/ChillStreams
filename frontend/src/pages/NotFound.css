@@ -1,0 +1,59 @@
+.not-found-page {
+    background-color: var(--primary-dark);
+    color: white;
+    min-height: 100vh;
+  }
+  
+  .not-found-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 80px;
+  }
+  
+  .error-code {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+    color: var(--accent-green);
+    line-height: 1;
+  }
+  
+  .error-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #aaa;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .home-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent-green);
+    color: var(--primary-dark);
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-button:hover {
+    background-color: var(--hover-green);
+  }
+  
+  @media (max-width: 768px) {
+    .error-code {
+      font-size: 4rem;
+    }
+    
+    .error-title {
+      font-size: 1.5rem;
+    }
+  }

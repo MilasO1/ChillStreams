@@ -1,0 +1,115 @@
+.client-header {
+    background-color: #0A0A0A;
+    color: white;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #1F1F1F;
+  }
+  
+  .client-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .client-header-logo h2 {
+    color: #00FF88;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .client-search-form {
+    display: flex;
+    flex-grow: 1;
+    max-width: 500px;
+    min-width: 250px;
+  }
+  
+  .client-search-form input {
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid #1F1F1F;
+    border-radius: 4px 0 0 4px;
+    background-color: #1F1F1F;
+    color: white;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .client-search-form button {
+    background-color: #00FF88;
+    color: #0A0A0A;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    padding: 0 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .client-search-form button:hover {
+    background-color: #00CC6A;
+  }
+  
+  .search-icon {
+    font-size: 1rem;
+  }
+  
+  .client-nav-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid #1F1F1F;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .nav-button:hover {
+    border-color: #00FF88;
+    color: #00FF88;
+  }
+  
+  .nav-button.primary {
+    background-color: #00FF88;
+    color: #0A0A0A;
+    border-color: #00FF88;
+  }
+  
+  .nav-button.primary:hover {
+    background-color: #00CC6A;
+    border-color: #00CC6A;
+  }
+  
+  @media (max-width: 768px) {
+    .client-header-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+    
+    .client-search-form {
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    .client-nav-buttons {
+      justify-content: flex-end;
+    }
+  }

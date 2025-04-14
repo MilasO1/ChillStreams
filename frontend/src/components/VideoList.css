@@ -1,0 +1,97 @@
+.video-list-container {
+    padding: 2rem;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  .video-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .add-video-button {
+    background-color: #00FF88;
+    color: #0A0A0A;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-video-button:hover {
+    background-color: #00CC6A;
+  }
+  
+  .video-table-container {
+    overflow-x: auto;
+  }
+  
+  .video-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1F1F1F;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .video-table th,
+  .video-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+  }
+  
+  .video-table th {
+    background-color: #0A0A0A;
+    color: #00FF88;
+    font-weight: 600;
+  }
+  
+  .video-table tr:hover {
+    background-color: #252525;
+  }
+  
+  .video-thumbnail {
+    width: 80px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .video-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .action-button {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+  
+  .action-button.view {
+    background-color: #1E90FF;
+    color: white;
+  }
+  
+  .action-button.edit {
+    background-color: #FFC107;
+    color: #0A0A0A;
+  }
+  
+  .action-button.delete {
+    background-color: #FF4655;
+    color: white;
+  }
+  
+  .action-button:hover {
+    opacity: 0.9;
+  }

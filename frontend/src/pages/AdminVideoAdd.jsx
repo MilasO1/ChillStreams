@@ -1,14 +1,14 @@
-// src/pages/AdminVideoAdd.jsx
 import Header from '../components/Header';
 import VideoForm from '../components/VideoForm';
+import './AdminVideoAdd.css';
 
 function AdminVideoAdd() {
   return (
-    <div>
+    <div className="admin-video-add">
       <Header />
-      <div className="container mt-4">
+      <main className="admin-content">
         <VideoForm />
-      </div>
+      </main>
     </div>
   );
 }

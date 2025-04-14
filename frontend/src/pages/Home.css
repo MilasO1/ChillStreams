@@ -1,0 +1,209 @@
+.home-page {
+    background-color: #0A0A0A;
+    color: white;
+    min-height: 100vh;
+  }
+  
+  .home-content {
+    padding: 0;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 80px;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+  }
+  
+  .hero-container {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    border-radius: 0 0 8px 8px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-description {
+    margin-bottom: 1rem;
+    max-width: 600px;
+  }
+  
+  .hero-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #00FF88;
+    color: #0A0A0A;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hero-button:hover {
+    background-color: #00CC6A;
+  }
+  
+  /* Genre Filter */
+  .genre-filter {
+    margin-bottom: 2rem;
+    padding: 0 2rem;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  .filter-container {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .filter-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
+  }
+  
+  .filter-button {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #00FF88;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-button.active,
+  .filter-button:hover {
+    background-color: #00FF88;
+    color: #0A0A0A;
+  }
+  
+  /* Video Carousel */
+  .video-carousel-section {
+    padding: 0 2rem 2rem;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .video-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .video-carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
+  }
+  
+  .video-card {
+    flex: 0 0 auto;
+    width: 240px;
+    background-color: #1F1F1F;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .video-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+  
+  .video-link {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .thumbnail-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+  
+  .video-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .video-info {
+    padding: 0.75rem;
+  }
+  
+  .video-title {
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .video-genre {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: #00FF88;
+    color: #0A0A0A;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  /* Netflix-style category rows */
+  .category-row {
+    margin-bottom: 2.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-container {
+      height: 300px;
+    }
+    
+    .hero-title {
+      font-size: 1.8rem;
+    }
+    
+    .video-card {
+      width: 180px;
+    }
+  }

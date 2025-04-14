@@ -1,14 +1,14 @@
-// src/pages/AdminDashboard.jsx
 import Header from '../components/Header';
 import VideoList from '../components/VideoList';
+import './AdminDashboard.css';
 
 function AdminDashboard() {
   return (
-    <div>
+    <div className="admin-dashboard">
       <Header />
-      <div className="container mt-4">
+      <main className="admin-content">
         <VideoList />
-      </div>
+      </main>
     </div>
   );
 }

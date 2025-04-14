@@ -1,10 +1,11 @@
-// src/components/Message.jsx
+import './Message.css';
+
 function Message({ variant = 'info', children }) {
-    return (
-      <div className={`alert alert-${variant}`} role="alert">
-        {children}
-      </div>
-    );
-  }
-  
-  export default Message;
+  return (
+    <div className={`message ${variant}`}>
+      {children}
+    </div>
+  );
+}
+
+export default Message;

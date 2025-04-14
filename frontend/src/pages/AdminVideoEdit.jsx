@@ -1,4 +1,3 @@
-// src/pages/AdminVideoEdit.jsx
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
@@ -6,6 +5,7 @@ import VideoForm from '../components/VideoForm';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import axiosInstance from '../utils/axiosConfig';
+import './AdminVideoEdit.css';
 
 function AdminVideoEdit() {
   const { id } = useParams();
@@ -29,29 +29,29 @@ function AdminVideoEdit() {
   }, [id]);
 
   if (loading) return (
-    <div>
+    <div className="admin-video-edit">
       <Header />
-      <div className="container mt-4">
+      <main className="admin-content">
         <Loader />
-      </div>
+      </main>
     </div>
   );
 
   if (error) return (
-    <div>
+    <div className="admin-video-edit">
       <Header />
-      <div className="container mt-4">
+      <main className="admin-content">
         <Message variant="danger">{error}</Message>
-      </div>
+      </main>
     </div>
   );
 
   return (
-    <div>
+    <div className="admin-video-edit">
       <Header />
-      <div className="container mt-4">
+      <main className="admin-content">
         <VideoForm videoToEdit={video} />
-      </div>
+      </main>
     </div>
   );
 }
