@@ -1,97 +1,302 @@
-.video-list-container {
-    padding: 2rem;
-    max-width: 1440px;
-    margin: 0 auto;
+ .video-list-container {
+  background-color: #0A0A0A;
+  color: white;
+  padding: 2rem;
+  margin-top: 80px; /* Account for fixed header */
+  min-height: calc(100vh - 80px);
+  font-family: 'Inter', sans-serif;
+}
+
+.video-list-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "title add-button";
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.video-list-header h2 {
+  grid-area: title;
+  color: #00FF88;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.add-video-button {
+  grid-area: add-button;
+  background-color: #00FF88;
+  color: #0A0A0A;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+.add-video-button:hover {
+  background-color: #00CC6A;
+}
+
+.video-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.video-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1F1F1F;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-table th {
+  background-color: #00FF88;
+  color: #0A0A0A;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.video-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.video-table tr:last-child td {
+  border-bottom: none;
+}
+
+.video-table tr:hover {
+  background-color: #2A2A2A;
+}
+
+.video-thumbnail {
+  width: 120px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.video-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action-button.view {
+  background-color: #1F1F1F;
+  color: white;
+  border: 1px solid #00FF88;
+}
+
+.action-button.view:hover {
+  background-color: #00FF88;
+  color: #0A0A0A;
+}
+
+.action-button.edit {
+  background-color: #1F1F1F;
+  color: white;
+  border: 1px solid #FFC107;
+}
+
+.action-button.edit:hover {
+  background-color: #FFC107;
+  color: #0A0A0A;
+}
+
+.action-button.delete {
+  background-color: #1F1F1F;
+  color: white;
+  border: 1px solid #FF5252;
+}
+
+.action-button.delete:hover {
+  background-color: #FF5252;
+  color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .video-list-container {
+    padding: 1rem;
+  }
+
+  .video-list-header {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "title"
+      "add-button";
+  }
+
+  .video-list-header h2 {
+    margin-bottom: 1rem;
+  }
+
+  .video-table th,
+  .video-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .video-thumbnail {
+    width: 80px;
+    height: 50px;
+  }
+
+  .video-actions {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .action-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .video-table {
+    display: block;
+  }
+
+  .video-table thead {
+    display: none;
+  }
+
+  .video-table tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "thumbnail title"
+      "genre date"
+      "actions actions";
+    gap: 0.5rem;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+  }
+
+  .video-table td {
+    padding: 0;
+    border: none;
+  }
+
+  .video-table td:nth-child(1) {
+    grid-area: thumbnail;
+  }
+
+  .video-table td:nth-child(2) {
+    grid-area: title;
+    align-self: center;
+  }
+
+  .video-table td:nth-child(3) {
+    grid-area: genre;
+  }
+
+  .video-table td:nth-child(4) {
+    grid-area: date;
+  }
+
+  .video-table td:nth-child(5) {
+    grid-area: actions;
+    margin-top: 0.5rem;
+  }
+
+  .video-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+/* Add these new styles to your existing VideoList.css */
+
+.video-list-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "search add-button";
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.video-search {
+  grid-area: search;
+  position: relative;
+  max-width: 400px;
+}
+
+.video-search input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border: 1px solid #1F1F1F;
+  border-radius: 4px;
+  background-color: #1F1F1F;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.video-search input:focus {
+  outline: none;
+  border-color: #00FF88;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+/* Update the existing .video-list-header styles */
+.video-list-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "title"
+    "controls";
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.video-list-header h2 {
+  grid-area: title;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .video-list-controls {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "search"
+      "add-button";
   }
   
-  .video-list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+  .video-search {
+    max-width: 100%;
   }
   
   .add-video-button {
-    background-color: #00FF88;
-    color: #0A0A0A;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-video-button:hover {
-    background-color: #00CC6A;
-  }
-  
-  .video-table-container {
-    overflow-x: auto;
-  }
-  
-  .video-table {
     width: 100%;
-    border-collapse: collapse;
-    background-color: #1F1F1F;
-    border-radius: 8px;
-    overflow: hidden;
+    text-align: center;
   }
-  
-  .video-table th,
-  .video-table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #333;
-  }
-  
-  .video-table th {
-    background-color: #0A0A0A;
-    color: #00FF88;
-    font-weight: 600;
-  }
-  
-  .video-table tr:hover {
-    background-color: #252525;
-  }
-  
-  .video-thumbnail {
-    width: 80px;
-    height: 45px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  
-  .video-actions {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .action-button {
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    cursor: pointer;
-    border: none;
-    text-decoration: none;
-  }
-  
-  .action-button.view {
-    background-color: #1E90FF;
-    color: white;
-  }
-  
-  .action-button.edit {
-    background-color: #FFC107;
-    color: #0A0A0A;
-  }
-  
-  .action-button.delete {
-    background-color: #FF4655;
-    color: white;
-  }
-  
-  .action-button:hover {
-    opacity: 0.9;
-  }
+} 

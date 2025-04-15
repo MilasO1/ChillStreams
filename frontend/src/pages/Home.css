@@ -1,209 +1,285 @@
 .home-page {
-    background-color: #0A0A0A;
-    color: white;
-    min-height: 100vh;
-  }
-  
-  .home-content {
-    padding: 0;
-    width: 100%;
-    margin: 0 auto;
-    margin-top: 80px;
-  }
-  
-  /* Hero Section */
-  .hero-section {
-    margin-bottom: 3rem;
-    padding: 0 2rem;
-  }
-  
-  .hero-container {
-    position: relative;
-    height: 500px;
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-  }
-  
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .hero-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2rem;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    border-radius: 0 0 8px 8px;
-  }
-  
+  background-color: #0A0A0A;
+  color: white;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.home-content {
+  margin-top: 80px; /* Account for fixed header */
+  padding: 0;
+}
+
+/* Hero Section */
+.hero-section {
+  width: 100%;
+  position: relative;
+  grid-area: hero;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 40%; /* Reduced from 56.25% to make hero smaller */
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin: 0 0 1rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #00FF88;
+  color: #0A0A0A;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: #00CC6A;
+}
+
+/* Genre Filter */
+.genre-filter {
+  grid-area: filter;
+  padding: 1.5rem 2rem;
+  background-color: #0A0A0A; /* Changed to black to match header */
+  position: sticky;
+  top: 80px;
+  z-index: 10;
+}
+
+.filter-container {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+
+.filter-container::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  border: 1px solid #333;
+  background-color: #1F1F1F;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+  border-color: #666;
+}
+
+.filter-button.active {
+  background-color: #00FF88;
+  color: #0A0A0A;
+  border-color: #00FF88;
+}
+
+/* Video Carousel Sections */
+.video-carousel-section {
+  padding: 1.5rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+  color: white;
+}
+
+/* Horizontal Carousel */
+.video-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.video-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* .video-card {
+  flex: 0 0 auto;
+  width: 240px; /* Increased from default to make thumbnails bigger 
+  background-color: #1F1F1F;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+  transform: scale(1.03);
+}
+
+.video-link {
+  text-decoration: none;
+  color: white;
+}
+
+.thumbnail-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio 
+  overflow: hidden;
+}
+
+.video-thumbnail {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit:cover !important;
+}
+
+.video-info {
+  padding: 1rem;
+}
+
+.video-title {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-genre {
+  font-size: 0.8rem;
+  color: #00FF88;
+} */
+
+/* Category Row */
+.category-row {
+  margin-bottom: 2rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
   .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+      font-size: 2.5rem;
   }
   
   .hero-description {
-    margin-bottom: 1rem;
-    max-width: 600px;
-  }
-  
-  .hero-button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #00FF88;
-    color: #0A0A0A;
-    border-radius: 4px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .hero-button:hover {
-    background-color: #00CC6A;
-  }
-  
-  /* Genre Filter */
-  .genre-filter {
-    margin-bottom: 2rem;
-    padding: 0 2rem;
-    max-width: 1440px;
-    margin: 0 auto;
-  }
-  
-  .filter-container {
-    display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
-  .filter-container::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
-  }
-  
-  .filter-button {
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    color: white;
-    border: 1px solid #00FF88;
-    border-radius: 20px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.3s ease;
-  }
-  
-  .filter-button.active,
-  .filter-button:hover {
-    background-color: #00FF88;
-    color: #0A0A0A;
-  }
-  
-  /* Video Carousel */
-  .video-carousel-section {
-    padding: 0 2rem 2rem;
-    max-width: 1440px;
-    margin: 0 auto;
-  }
-  
-  .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
-  }
-  
-  .video-carousel {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    padding: 0.5rem 0;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
-  .video-carousel::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
+      font-size: 1rem;
   }
   
   .video-card {
-    flex: 0 0 auto;
-    width: 240px;
-    background-color: #1F1F1F;
-    border-radius: 4px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+      width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-content {
+      padding: 0;
   }
   
-  .video-card:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    z-index: 1;
+  .hero-section {
+      padding-top: 0;
   }
   
-  .video-link {
-    text-decoration: none;
-    color: white;
+  .hero-overlay {
+      padding: 1.5rem;
   }
   
-  .thumbnail-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  .hero-title {
+      font-size: 2rem;
   }
   
-  .video-thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .hero-button {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+  }
+  
+  .genre-filter,
+  .video-carousel-section {
+      padding: 1rem;
+  }
+  
+  .video-card {
+      width: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+      font-size: 1.8rem;
+  }
+  
+  .hero-description {
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+  }
+  
+  .filter-container {
+      gap: 0.25rem;
+  }
+  
+  .filter-button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+  }
+  
+  .video-card {
+      width: 150px;
   }
   
   .video-info {
-    padding: 0.75rem;
+      padding: 0.75rem;
   }
   
   .video-title {
-    font-size: 0.9rem;
-    margin: 0 0 0.5rem 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+      font-size: 0.9rem;
   }
-  
-  .video-genre {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background-color: #00FF88;
-    color: #0A0A0A;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-  
-  /* Netflix-style category rows */
-  .category-row {
-    margin-bottom: 2.5rem;
-  }
-  
-  @media (max-width: 768px) {
-    .hero-container {
-      height: 300px;
-    }
-    
-    .hero-title {
-      font-size: 1.8rem;
-    }
-    
-    .video-card {
-      width: 180px;
-    }
-  }
+}

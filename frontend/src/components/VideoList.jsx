@@ -7,18 +7,30 @@ import './VideoList.css';
 
 function VideoList() {
   const [videos, setVideos] = useState([]);
+  const [filteredVideos, setFilteredVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchVideos();
   }, []);
+
+  useEffect(() => {
+    const filtered = videos.filter(video => 
+      video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.genre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.description?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredVideos(filtered);
+  }, [searchTerm, videos]);
 
   const fetchVideos = async () => {
     try {
       setLoading(true);
       const { data } = await axiosInstance.get('/videos');
       setVideos(data);
+      setFilteredVideos(data);
       setLoading(false);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch videos');
@@ -44,13 +56,29 @@ function VideoList() {
     <div className="video-list-container">
       <div className="video-list-header">
         <h2>Videos Library</h2>
-        <Link to="/admin/videos/add" className="add-video-button">
-          Add New Video
-        </Link>
+        <div className="video-list-controls">
+          <div className="video-search">
+            <input
+              type="text"
+              placeholder="Search videos by title, genre or description..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <span className="search-icon">🔍</span>
+          </div>
+          <Link to="/admin/videos/add" className="add-video-button">
+            Add New Video
+          </Link>
+        </div>
       </div>
 
-      {videos.length === 0 ? (
-        <Message>No videos found. Add your first video!</Message>
+      {filteredVideos.length === 0 ? (
+        <Message>
+          {searchTerm ? 
+            'No videos match your search. Try different keywords.' : 
+            'No videos found. Add your first video!'
+          }
+        </Message>
       ) : (
         <div className="video-table-container">
           <table className="video-table">
@@ -64,7 +92,7 @@ function VideoList() {
               </tr>
             </thead>
             <tbody>
-              {videos.map((video) => (
+              {filteredVideos.map((video) => (
                 <tr key={video._id}>
                   <td>
                     <img 

@@ -4,6 +4,7 @@ import axiosInstance from '../utils/axiosConfig';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ClientHeader from '../components/ClientHeader';
+import VideoCard from '../components/VideoCard';
 import './Home.css';
 
 function Home() {
@@ -23,6 +24,7 @@ function Home() {
       const { data } = await axiosInstance.get('/videos');
       setVideos(data);
       
+      // Extract unique genres from videos
       const uniqueGenres = [...new Set(data.map(video => video.genre))];
       setGenres(['All', ...uniqueGenres]);
       
@@ -33,7 +35,7 @@ function Home() {
     }
   };
 
-  // Get videos grouped by genre (for Netflix-style category rows)
+  // Get videos grouped by genre 
   const getVideosByGenre = () => {
     const videosByGenre = {};
     
@@ -46,6 +48,7 @@ function Home() {
     return videosByGenre;
   };
 
+  // Filter videos when a specific genre is selected
   const filteredVideos = selectedGenre === 'All' 
     ? videos 
     : videos.filter(video => video.genre === selectedGenre);
@@ -75,7 +78,7 @@ function Home() {
     <div className="home-page">
       <ClientHeader />
       <main className="home-content">
-        {/* Hero Section */}
+        {/* Hero Section - Reduced height */}
         {featuredVideo && (
           <section className="hero-section">
             <div className="hero-container">
@@ -114,7 +117,7 @@ function Home() {
           </div>
         </section>
 
-        {/* Selected Genre Videos (Horizontal Carousel) */}
+        {/* Show genre-specific videos when a genre is selected */}
         {selectedGenre !== 'All' ? (
           <section className="video-carousel-section">
             <h2 className="section-title">{selectedGenre}</h2>
@@ -123,48 +126,20 @@ function Home() {
             ) : (
               <div className="video-carousel">
                 {filteredVideos.map(video => (
-                  <div key={video._id} className="video-card">
-                    <Link to={`/watch/${video._id}`} className="video-link">
-                      <div className="thumbnail-container">
-                        <img 
-                          src={video.thumbnail} 
-                          alt={video.title}
-                          className="video-thumbnail"
-                        />
-                      </div>
-                      <div className="video-info">
-                        <h3 className="video-title">{video.title}</h3>
-                        <span className="video-genre">{video.genre}</span>
-                      </div>
-                    </Link>
-                  </div>
+                  <VideoCard key={video._id} video={video} />
                 ))}
               </div>
             )}
           </section>
         ) : (
-          // Netflix-style multiple category rows when "All" is selected
-          Object.entries(videosByGenre).map(([genre, videos]) => (
-            videos.length > 0 && (
-              <section key={genre} className="category-row video-carousel-section">
+          /* Netflix-style rows - Always show all genres when "All" is selected */
+          Object.entries(videosByGenre).map(([genre, genreVideos]) => (
+            genreVideos.length > 0 && (
+              <section key={genre} className="video-carousel-section category-row">
                 <h2 className="section-title">{genre}</h2>
                 <div className="video-carousel">
-                  {videos.map(video => (
-                    <div key={video._id} className="video-card">
-                      <Link to={`/watch/${video._id}`} className="video-link">
-                        <div className="thumbnail-container">
-                          <img 
-                            src={video.thumbnail} 
-                            alt={video.title}
-                            className="video-thumbnail"
-                          />
-                        </div>
-                        <div className="video-info">
-                          <h3 className="video-title">{video.title}</h3>
-                          <span className="video-genre">{video.genre}</span>
-                        </div>
-                      </Link>
-                    </div>
+                  {genreVideos.map(video => (
+                    <VideoCard key={video._id} video={video} />
                   ))}
                 </div>
               </section>

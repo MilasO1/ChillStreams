@@ -4,6 +4,7 @@ import './ClientHeader.css';
 
 function ClientHeader() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -22,6 +23,14 @@ function ClientHeader() {
     navigate('/login');
   };
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleNavClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <header className="client-header">
       <div className="client-header-container">
@@ -32,7 +41,7 @@ function ClientHeader() {
           </Link>
         </div>
         
-        {/* Search Bar */}
+        
         <form className="client-search-form" onSubmit={handleSearch}>
           <input
             type="text"
@@ -45,27 +54,40 @@ function ClientHeader() {
           </button>
         </form>
         
+       
+        <button 
+          className={`burger-menu-button ${menuOpen ? 'burger-menu-active' : ''}`} 
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
+        >
+          <div className="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+        
         {/* Navigation */}
-        <div className="client-nav-buttons">
-          <Link to="/browse" className="nav-button">
+        <div className={`client-nav-buttons ${menuOpen ? 'active' : ''}`}>
+          <Link to="/browse" className="nav-button" onClick={handleNavClick}>
             Browse
           </Link>
           
           {isLoggedIn ? (
             <>
-              <Link to="/profile" className="nav-button">
+              <Link to="/profile" className="nav-button" onClick={handleNavClick}>
                 Profile
               </Link>
-              <button onClick={handleLogout} className="nav-button">
+              <button onClick={() => {handleLogout(); handleNavClick();}} className="nav-button">
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-button">
+              <Link to="/login" className="nav-button" onClick={handleNavClick}>
                 Login
               </Link>
-              <Link to="/register" className="nav-button primary">
+              <Link to="/register" className="nav-button primary" onClick={handleNavClick}>
                 Sign Up
               </Link>
             </>

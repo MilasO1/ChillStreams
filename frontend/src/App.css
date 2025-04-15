@@ -1,43 +1,31 @@
-:root {
-  --primary-dark: #0A0A0A;
-  --secondary-dark: #1F1F1F;
-  --accent-green: #00FF88;
-  --hover-green: #00CC6A;
-  --text-white: #FFFFFF;
-  --danger: #FF4655;
-  --warning: #FFC107;
+/* .home-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+  "header"
+  "home-content"
+  "footer";
 }
 
-body {
-  background-color: var(--primary-dark);
-  color: var(--text-white);
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
+.home-header {
+  grid-area : header;
+  position: sticky;
+  top: 0;
+  width: 50%;
+  height: 50px;
+  background-color: aquamarine;
+} 
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+.home-content {
+  grid-area: home-content;
+  background-color: blue;
+} 
 
-button {
-  cursor: pointer;
-  font-family: inherit;
-}
-
-input, textarea, select {
-  font-family: inherit;
-}
-
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Add smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+.home-footer {
+  grid-area: footer;
+  background-color: red;
+  height: 50px;
+  width: 50%;
+  position: fixed;
+  bottom: 0;
+} */

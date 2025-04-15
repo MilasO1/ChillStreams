@@ -1,93 +1,151 @@
+ body {
+  background-color: #000000;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
 .video-form-container {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #1F1F1F;
-    border-radius: 8px;
-    margin-top: 1rem;
-  }
-  
-  .video-form-container h2 {
-    color: #00FF88;
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-error {
-    background-color: #FF4655;
-    color: white;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-    font-family: 'Inter', sans-serif;
-  }
-  
+  background-color: #0A0A0A;
+  color: white;
+  padding: 2rem;
+  margin-top: 80px; /* Account for fixed header */
+  min-height: calc(100vh - 80px);
+  font-family: 'Inter', sans-serif;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.video-form-container h2 {
+  color: #00FF88;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-error {
+  color: #FF5252;
+  background-color: rgba(255, 82, 82, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  border-left: 3px solid #FF5252;
+}
+
+.video-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "title"
+    "description"
+    "genre"
+    "video"
+    "thumbnail"
+    "submit";
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #CCCCCC;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background-color: #1F1F1F;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #00FF88;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 0.25rem;
+}
+
+.thumbnail-preview {
+  margin-top: 1rem;
+}
+
+.thumbnail-preview img {
+  max-width: 200px;
+  max-height: 120px;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+.submit-button {
+  grid-area: submit;
+  background-color: #00FF88;
+  color: #0A0A0A;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  background-color: #00CC6A;
+}
+
+.submit-button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
   .video-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "title title"
+      "description description"
+      "genre video"
+      "thumbnail thumbnail"
+      "submit submit";
   }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .form-group label {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    color: #FFFFFF;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    padding: 0.75rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    background-color: #0A0A0A;
-    color: white;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .form-group textarea {
-    min-height: 100px;
-    resize: vertical;
-  }
-  
-  .form-hint {
-    font-size: 0.875rem;
-    color: #888;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .thumbnail-preview {
-    margin-top: 1rem;
+
+  .form-group:nth-child(1) { grid-area: title; }
+  .form-group:nth-child(2) { grid-area: description; }
+  .form-group:nth-child(3) { grid-area: genre; }
+  .form-group:nth-child(4) { grid-area: video; }
+  .form-group:nth-child(5) { grid-area: thumbnail; }
+}
+
+@media (max-width: 480px) {
+  .video-form-container {
+    padding: 1.5rem 1rem;
   }
   
   .thumbnail-preview img {
-    max-height: 150px;
-    max-width: 100%;
-    border-radius: 4px;
+    max-width: 150px;
+    max-height: 90px;
   }
-  
-  .submit-button {
-    background-color: #00FF88;
-    color: #0A0A0A;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover:not(:disabled) {
-    background-color: #00CC6A;
-  }
-  
-  .submit-button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+} 

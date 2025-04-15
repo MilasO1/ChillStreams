@@ -26,7 +26,6 @@ function WatchVideo() {
       const { data } = await axiosInstance.get(`/videos/${id}`);
       setVideo(data);
       
-      // Fetch related videos
       const { data: allVideos } = await axiosInstance.get('/videos');
       const related = allVideos
         .filter(v => v.genre === data.genre && v._id !== data._id)

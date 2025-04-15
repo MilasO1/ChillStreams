@@ -1,115 +1,247 @@
 .client-header {
-    background-color: #0A0A0A;
-    color: white;
-    padding: 1rem 2rem;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid #1F1F1F;
+  background-color: #0A0A0A;
+  color: white;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #1F1F1F;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.client-header-container {
+  display: grid;
+  max-width: 1440px;
+  margin: 0 auto;
+  grid-template-columns: auto minmax(250px, 500px) auto;
+  grid-template-areas: "logo search-bar nav";
+  gap: 1rem;
+  align-items: center;
+}
+
+.client-header-logo {
+  grid-area: logo;
+}
+
+.client-header-logo h2 {
+  color: #00FF88;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.client-header-logo a {
+  text-decoration: none;
+}
+
+.client-header-logo a:hover {
+  text-decoration: none;
+}
+
+.client-search-form {
+  grid-area: search-bar;
+  display: flex;
+  width: 100%;
+}
+
+.client-search-form input {
+  flex-grow: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1F1F1F;
+  border-radius: 4px 0 0 4px;
+  background-color: #1F1F1F;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.client-search-form button {
+  background-color: #00FF88;
+  color: #0A0A0A;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  padding: 0 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.client-search-form button:hover {
+  background-color: #00CC6A;
+}
+
+.search-icon {
+  font-size: 1rem;
+}
+
+.client-nav-buttons {
+  grid-area: nav;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid #1F1F1F;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+button.nav-button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+
+}
+
+.nav-button:hover {
+  border-color: #00FF88;
+  color: #00FF88;
+}
+
+.nav-button.primary {
+  background-color: #00FF88;
+  color: #0A0A0A;
+  border-color: #00FF88;
+}
+
+.nav-button.primary:hover {
+  background-color: #00CC6A;
+  border-color: #00CC6A;
+}
+
+
+.burger-menu-button {
+  display: none;
+  grid-area: burger;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 1rem;
+  margin-left: auto;
+}
+
+.burger-menu-button:hover {
+  color: #00FF88;
+}
+
+.burger-icon {
+  display: block;
+  width: 25px;
+  height: 18px;
+  position: relative;
+}
+
+.burger-icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: white;
+  border-radius: 2px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.burger-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.burger-icon span:nth-child(2) {
+  top: 8px;
+}
+
+.burger-icon span:nth-child(3) {
+  top: 16px;
+  width: 100%;
+}
+
+.burger-menu-active .burger-icon span:nth-child(1) {
+  top: 8px;
+  transform: rotate(135deg);
+}
+
+.burger-menu-active .burger-icon span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.burger-menu-active .burger-icon span:nth-child(3) {
+  top: 8px;
+  transform: rotate(-135deg);
+}
+
+@media (max-width: 768px) {
+  .client-header {
+    padding: 1rem;
   }
   
   .client-header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1440px;
-    margin: 0 auto;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 
+      "logo search-bar burger"
+      "nav nav nav";
     gap: 1rem;
-    flex-wrap: wrap;
   }
   
-  .client-header-logo h2 {
-    color: #00FF88;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  
-  .client-search-form {
-    display: flex;
-    flex-grow: 1;
-    max-width: 500px;
-    min-width: 250px;
-  }
-  
-  .client-search-form input {
-    flex-grow: 1;
-    padding: 0.5rem 1rem;
-    border: 1px solid #1F1F1F;
-    border-radius: 4px 0 0 4px;
-    background-color: #1F1F1F;
-    color: white;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .client-search-form button {
-    background-color: #00FF88;
-    color: #0A0A0A;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    padding: 0 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .client-search-form button:hover {
-    background-color: #00CC6A;
-  }
-  
-  .search-icon {
-    font-size: 1rem;
+  .burger-menu-button {
+    display: block;
   }
   
   .client-nav-buttons {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 0 0;
+    gap: 0.5rem;
+    align-items: center; /* Center the nav buttons */
+  }
+  
+  .client-nav-buttons.active {
     display: flex;
-    gap: 1rem;
   }
   
   .nav-button {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 1px solid #1F1F1F;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+    width: 80%; /* Not 100% to prevent full width on mobile */
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto; /* Center the buttons */
   }
   
-  .nav-button:hover {
-    border-color: #00FF88;
-    color: #00FF88;
+  button.nav-button {
+    width: 80%; /* Match the Link button width */
+  }
+}
+
+@media (max-width: 576px) {
+  .client-header-container {
+    grid-template-columns: auto auto;
+    grid-template-areas: 
+      "logo burger"
+      "search-bar search-bar"
+      "nav nav";
   }
   
-  .nav-button.primary {
-    background-color: #00FF88;
-    color: #0A0A0A;
-    border-color: #00FF88;
+  .client-search-form {
+    justify-self: stretch;
   }
-  
-  .nav-button.primary:hover {
-    background-color: #00CC6A;
-    border-color: #00CC6A;
-  }
-  
-  @media (max-width: 768px) {
-    .client-header-container {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1rem;
-    }
-    
-    .client-search-form {
-      width: 100%;
-      max-width: 100%;
-    }
-    
-    .client-nav-buttons {
-      justify-content: flex-end;
-    }
-  }
+}

@@ -1,0 +1,50 @@
+ .video-card {
+  flex: 0 0 auto;
+  width: 240px; /* Increased from default to make thumbnails bigger */
+  background-color: #1F1F1F;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+  transform: scale(1.03);
+}
+
+.video-link {
+  text-decoration: none;
+  color: white;
+}
+
+.thumbnail-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+}
+
+.video-thumbnail {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit:cover !important;
+}
+
+.video-info {
+  padding: 1rem;
+}
+
+.video-title {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-genre {
+  font-size: 0.8rem;
+  color: #00FF88;
+} 
