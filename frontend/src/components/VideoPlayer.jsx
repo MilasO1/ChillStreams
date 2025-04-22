@@ -1,7 +1,7 @@
 import ReactPlayer from 'react-player';
 import './VideoPlayer.css';
 
-function VideoPlayer({ url }) {
+function VideoPlayer({ url, onReady }) {
   return (
     <div className="video-player-container">
       <ReactPlayer
@@ -10,6 +10,7 @@ function VideoPlayer({ url }) {
         width="100%"
         height="100%"
         controls
+        onReady={onReady}
       />
     </div>
   );

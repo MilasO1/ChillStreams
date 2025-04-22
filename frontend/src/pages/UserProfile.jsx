@@ -10,7 +10,8 @@ function UserProfile() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [profilePic, setProfilePic] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [profilePic, setProfilePic] = useState(null);
   const [picPreview, setPicPreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -35,7 +36,7 @@ function UserProfile() {
       
       setName(data.name);
       setEmail(data.email);
-      setPicPreview(data.pic);
+      setPicPreview(data.pic || "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg");
       
       setLoading(false);
     } catch (err) {
@@ -52,15 +53,30 @@ function UserProfile() {
   
   const handlePicChange = (e) => {
     const file = e.target.files[0];
-    setProfilePic(file);
+    if (!file) return;
     
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPicPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    // Validate file type and size
+    if (!file.type.match('image.*')) {
+      setError('Please select an image file (JPEG, PNG)');
+      return;
     }
+    
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      setError('Image size should be less than 5MB');
+      return;
+    }
+    
+    setProfilePic(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPicPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const removeProfilePic = () => {
+    setProfilePic(null);
+    setPicPreview("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg");
   };
   
   const handleSubmit = async (e) => {
@@ -70,27 +86,33 @@ function UserProfile() {
       setLoading(true);
       setError('');
       setSuccess('');
-      
-      const updateData = {
-        name,
-        email,
-      };
-      
-      if (password) {
-        updateData.password = password;
+
+      // Validate password match if changing password
+      if (password && password !== confirmPassword) {
+        throw new Error('Passwords do not match');
       }
-      
-      const { data } = await axiosInstance.put('/users/profile', updateData);
+
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      if (password) formData.append('password', password);
+      if (profilePic) formData.append('pic', profilePic);
+
+      const { data } = await axiosInstance.put('/users/profile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       
       localStorage.setItem('user', JSON.stringify(data));
-      
       setSuccess('Profile updated successfully');
       setLoading(false);
       setPassword('');
+      setConfirmPassword('');
       
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.message || 'Failed to update profile');
+      setError(err.response?.data?.message || err.message || 'Failed to update profile');
     }
   };
 
@@ -115,62 +137,94 @@ function UserProfile() {
           
           <div className="profile-pic-container">
             <img 
-              src={picPreview || "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"} 
+              src={picPreview || null} 
               alt="Profile" 
               className="profile-pic"
+              onError={(e) => {
+                e.target.src = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+              }}
             />
+            <div className="profile-pic-controls">
+              <label htmlFor="profilePic" className="profile-pic-edit">
+                Change Photo
+                <input
+                  type="file"
+                  id="profilePic"
+                  accept="image/*"
+                  onChange={handlePicChange}
+                  className="profile-pic-input"
+                />
+              </label>
+              <button 
+                type="button" 
+                className="profile-pic-remove"
+                onClick={removeProfilePic}
+              >
+                Remove
+              </button>
+            </div>
           </div>
           
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
-              <label htmlFor="name">Name</label>
               <input
                 type="text"
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                placeholder="Enter your name"
               />
             </div>
             
             <div className="form-group">
-              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                placeholder="Enter your email"
               />
             </div>
             
             <div className="form-group">
-              <label htmlFor="password">New Password (leave blank to keep current)</label>
               <input
                 type="password"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                minLength="6"
+                placeholder="New password. Leave blank to keep current"
               />
             </div>
-            
-            <div className="form-group">
-              <label htmlFor="profilePic">Profile Picture</label>
-              <input
-                type="file"
-                id="profilePic"
-                accept="image/*"
-                onChange={handlePicChange}
-              />
-              <div className="form-note">Note: Profile picture update feature coming soon</div>
-            </div>
+
+            {password && (
+              <div className="form-group">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  minLength="6"
+                  placeholder="Confirm your new password"
+                />
+              </div>
+            )}
             
             <button 
               type="submit" 
               className="update-button"
               disabled={loading}
             >
-              {loading ? 'Updating...' : 'Update Profile'}
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  Updating...
+                </>
+              ) : (
+                'Update Profile'
+              )}
             </button>
           </form>
         </div>

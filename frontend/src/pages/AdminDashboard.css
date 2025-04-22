@@ -1,0 +1,28 @@
+/* AdminDashboard.css */
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    min-height: 100vh;
+    background-color: var(--background);
+  }
+  
+  .admin-header {
+    grid-column: 1 / -1;
+  }
+  
+  .admin-content {
+    grid-column: 2;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-dashboard {
+      grid-template-columns: 1fr;
+      padding: var(--spacing-md);
+    }
+    
+    .admin-content {
+      grid-column: 1;
+    }
+  }

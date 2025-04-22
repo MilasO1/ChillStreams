@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
+import ClientHeader from '../components/ClientHeader';
 import './Login.css';
 
 function Login() {
@@ -27,7 +28,13 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(data));
       
       setLoading(false);
-      navigate('/admin');
+      
+      // Check if the user is an admin and redirect accordingly
+      if (data.isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
       
     } catch (err) {
       setLoading(false);
@@ -37,33 +44,36 @@ function Login() {
 
   return (
     <div className="login-page">
+      <ClientHeader />
       <div className="login-container">
         <div className="login-card">
-          <h2 className="login-title">Admin Login</h2>
+          <h2 className="login-title">Login</h2>
           
           {error && <div className="login-error">{error}</div>}
           
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
-              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
                 value={email}
+                placeholder=""
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <label htmlFor="email">Email</label>
             </div>
             
             <div className="form-group">
-              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
                 value={password}
+                placeholder=""
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <label htmlFor="password">Password</label>
             </div>
             
             <button 
@@ -73,6 +83,10 @@ function Login() {
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
+
+            <div className="register-link">
+              Don't have an account yet? <Link to="/register">Sign Up</Link>
+            </div>
           </form>
         </div>
       </div>

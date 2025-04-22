@@ -1,50 +1,77 @@
- .video-card {
-  flex: 0 0 auto;
-  width: 240px; /* Increased from default to make thumbnails bigger */
-  background-color: #1F1F1F;
-  border-radius: 8px;
+/* VideoCard.css */
+
+.video-card {
+  position: relative;
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: all var(--transition-normal);
+  aspect-ratio: 16/9;
 }
 
 .video-card:hover {
-  transform: scale(1.03);
-}
-
-.video-link {
-  text-decoration: none;
-  color: white;
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .thumbnail-container {
   position: relative;
   width: 100%;
+  height: 0;
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
   overflow: hidden;
 }
 
 .video-thumbnail {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit:cover !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.video-link:hover .video-thumbnail {
+  transform: scale(1.1);
 }
 
 .video-info {
-  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-md);
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.video-card:hover .video-info {
+  opacity: 1;
 }
 
 .video-title {
-  font-size: 1rem;
-  margin: 0 0 0.5rem;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+  font-size: var(--font-size-md);
+  font-weight: bold;
+  margin-bottom: var(--spacing-xs);
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .video-genre {
-  font-size: 0.8rem;
-  color: #00FF88;
-} 
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  color: var(--primary-green);
+  background-color: rgba(10, 158, 92, 0.2);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .video-title {
+    font-size: var(--font-size-lg);
+  }
+}

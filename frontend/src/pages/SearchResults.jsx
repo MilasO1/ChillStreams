@@ -4,6 +4,7 @@ import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import VideoCard from '../components/VideoCard';
 import './SearchResults.css';
 
 function SearchResults() {
@@ -61,30 +62,19 @@ function SearchResults() {
     <div className="search-page">
       <ClientHeader />
       <main className="search-content">
-        <h2 className="search-title">Search Results for "{query}"</h2>
-        <p className="search-count">{videos.length} results found</p>
+        <div className="search-header">
+          <h2 className="search-title">Search Results for "{query}"</h2>
+          <p className="search-count">{videos.length} results found</p>
+        </div>
         
         {videos.length === 0 ? (
           <Message>No videos matching your search.</Message>
         ) : (
-          <div className="search-grid">
+          <div className="search-results">
             {videos.map(video => (
-              <Link key={video._id} to={`/watch/${video._id}`} className="search-card">
-                <div className="thumbnail-container">
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title}
-                    className="video-thumbnail"
-                  />
-                </div>
-                <div className="video-info">
-                  <h3 className="video-title">{video.title}</h3>
-                  <span className="video-genre">{video.genre}</span>
-                  <p className="video-description">
-                    {video.description.substring(0, 80)}...
-                  </p>
-                </div>
-              </Link>
+              <div key={video._id} className="search-result-item">
+                <VideoCard video={video} />
+              </div>
             ))}
           </div>
         )}

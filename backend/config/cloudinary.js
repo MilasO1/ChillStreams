@@ -3,7 +3,7 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import path from 'path';
 
-// Load environment variables right here, using path to find .env in the project root
+
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 cloudinary.config({ 
@@ -32,7 +32,7 @@ const uploadToCloudinary = async (localFilePath) => {
     return response;
 
   } catch (error) {
-    // Ensure local file cleanup
+    
     if (localFilePath && fs.existsSync(localFilePath)) {
       fs.unlinkSync(localFilePath);
     }

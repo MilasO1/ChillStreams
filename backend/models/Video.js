@@ -10,7 +10,7 @@ const videoSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  url: { // Cloudinary URL
+  url: { 
     type: String,
     required: true,
   },
@@ -18,7 +18,7 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  publicId: { // Cloudinary public ID
+  publicId: { 
     type: String,
     required: true,
   },
@@ -29,7 +29,7 @@ const videoSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-// Add text index for search
+// text index for search
 videoSchema.index({ title: 'text', description: 'text', genre: 'text' });
 
 const Video = mongoose.model("Video", videoSchema);

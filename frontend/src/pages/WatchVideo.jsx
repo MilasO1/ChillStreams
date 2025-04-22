@@ -5,7 +5,7 @@ import ClientHeader from '../components/ClientHeader';
 import VideoPlayer from '../components/VideoPlayer';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import RelatedVideos from '../components/RelatedVideos';
+import VideoCard from '../components/VideoCard';
 import './WatchVideo.css';
 
 function WatchVideo() {
@@ -14,6 +14,7 @@ function WatchVideo() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [relatedVideos, setRelatedVideos] = useState([]);
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
 
   useEffect(() => {
     fetchVideo();
@@ -23,13 +24,14 @@ function WatchVideo() {
   const fetchVideo = async () => {
     try {
       setLoading(true);
+      setIsPlayerReady(false);
       const { data } = await axiosInstance.get(`/videos/${id}`);
       setVideo(data);
       
       const { data: allVideos } = await axiosInstance.get('/videos');
       const related = allVideos
         .filter(v => v.genre === data.genre && v._id !== data._id)
-        .slice(0, 4);
+        .slice(0, 6);
       setRelatedVideos(related);
       
       setLoading(false);
@@ -37,6 +39,10 @@ function WatchVideo() {
       setError(err.response?.data?.message || 'Failed to fetch video');
       setLoading(false);
     }
+  };
+
+  const handlePlayerReady = () => {
+    setIsPlayerReady(true);
   };
 
   if (loading) return (
@@ -61,33 +67,59 @@ function WatchVideo() {
     <div className="watch-page">
       <ClientHeader />
       <main className="watch-content">
-        <div className="video-container">
-          {/* Main Video Section */}
-          <div className="main-video">
-            <div className="video-player-wrapper">
-              <VideoPlayer url={video.url} />
-            </div>
+        <div className="video-layout-container">
+          {/* Main Video Column */}
+          <div className="main-video-column">
+              {!isPlayerReady && <div className="player-loading">
+                <div className="player-loading-spinner"></div>
+              </div>}
+              <VideoPlayer 
+                url={video.url} 
+                onReady={handlePlayerReady}
+              />
             
-            <div className="video-info">
+            <div className="video-info-section">
               <h1 className="video-title">{video.title}</h1>
-              <div className="video-meta">
-                <span className="video-genre">{video.genre}</span>
+              <div className="video-meta-data">
+                <span className="video-views">{video.views} views</span>
                 <span className="video-date">
-                  Added on {new Date(video.createdAt).toLocaleDateString()}
+                  {new Date(video.createdAt).toLocaleDateString()}
                 </span>
+                <span className="video-genre">{video.genre}</span>
+              </div>
+              
+              <div className="video-actions">
+                <button className="action-button like-button">
+                  <i className="action-icon">👍</i> Like
+                </button>
+                <button className="action-button save-button">
+                  <i className="action-icon">💾</i> Save
+                </button>
+                <button className="action-button share-button">
+                  <i className="action-icon">↗️</i> Share
+                </button>
               </div>
               
               <div className="video-description">
-                <h2>Description</h2>
                 <p>{video.description}</p>
               </div>
             </div>
           </div>
-          
-          {/* Related Videos Section */}
-          <div className="related-videos">
-            <h3 className="related-title">Related Videos</h3>
-            <RelatedVideos videos={relatedVideos} />
+
+          {/* Related Videos Sidebar */}
+          <div className="related-videos-sidebar">
+            <h3 className="sidebar-title">Related Videos</h3>
+            <div className="related-videos-list">
+              {relatedVideos.length > 0 ? (
+                relatedVideos.map(video => (
+                  <div key={video._id} className="related-video-item">
+                    <VideoCard video={video} />
+                  </div>
+                ))
+              ) : (
+                <p className="no-related">No related videos found.</p>
+              )}
+            </div>
           </div>
         </div>
       </main>

@@ -60,6 +60,7 @@ function Register() {
                 type="text"
                 id="name"
                 value={name}
+                placeholder=""
                 onChange={(e) => setName(e.target.value)}
                 required
               />
@@ -71,6 +72,7 @@ function Register() {
                 type="email"
                 id="email"
                 value={email}
+                placeholder=""
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -82,6 +84,7 @@ function Register() {
                 type="password"
                 id="password"
                 value={password}
+                placeholder=""
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
@@ -93,6 +96,7 @@ function Register() {
                 type="password"
                 id="confirmPassword"
                 value={confirmPassword}
+                placeholder=""
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />

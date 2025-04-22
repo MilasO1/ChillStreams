@@ -1,14 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './ClientHeader.css';
 
 function ClientHeader() {
   const [searchTerm, setSearchTerm] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const isLoggedIn = !!localStorage.getItem('token');
+
+   useEffect (() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,7 +47,7 @@ function ClientHeader() {
   };
 
   return (
-    <header className="client-header">
+    <header className={`client-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="client-header-container">
         {/* Logo */}
         <div className="client-header-logo">
@@ -41,7 +56,7 @@ function ClientHeader() {
           </Link>
         </div>
         
-        
+        {/* Search Form */}
         <form className="client-search-form" onSubmit={handleSearch}>
           <input
             type="text"
@@ -49,12 +64,12 @@ function ClientHeader() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit">
+          <button type="submit" aria-label="Search">
             <span className="search-icon">🔍</span>
           </button>
         </form>
         
-       
+        {/* Burger Menu */}
         <button 
           className={`burger-menu-button ${menuOpen ? 'burger-menu-active' : ''}`} 
           onClick={toggleMenu}

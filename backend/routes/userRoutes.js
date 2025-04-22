@@ -1,6 +1,7 @@
 import express from 'express';
 import { protect, admin } from '../middlewares/authMiddleware.js';
 import { registerValidation, loginValidation } from '../validations/authValidation.js';
+import upload from '../middlewares/multerMiddleware.js';
 import { 
     registerUser, 
     loginUser, 
@@ -22,7 +23,7 @@ router.post('/logout', logoutUser);
 
 // Protected routes
 router.get('/profile', protect, getUserProfile);
-router.put('/profile', protect, updateUser);
+router.put('/profile', protect, upload.single('pic'), updateUser);
 
 // Admin-only routes
 router.get('/users', protect, admin, getAllUsers);

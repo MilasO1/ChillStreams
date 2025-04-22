@@ -65,83 +65,105 @@ function VideoForm({ videoToEdit }) {
 
   return (
     <div className="video-form-container">
-      <h2>{videoToEdit ? 'Edit Video' : 'Add New Video'}</h2>
+      <h2 className="form-title">{videoToEdit ? 'Edit Video' : 'Add New Video'}</h2>
       
       {error && <div className="form-error">{error}</div>}
       
       <form onSubmit={handleSubmit} className="video-form">
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="title" className="form-label">Title</label>
+            <input
+              type="text"
+              id="title"
+              className="form-input"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="genre" className="form-label">Genre</label>
+            <select
+              id="genre"
+              className="form-input"
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+              required
+            >
+              {genreOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description" className="form-label">Description</label>
           <textarea
             id="description"
-            rows="3"
+            className="form-textarea"
+            rows="4"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
         
-        <div className="form-group">
-          <label htmlFor="genre">Genre</label>
-          <select
-            id="genre"
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-            required
-          >
-            {genreOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="video">
-            Video File {videoToEdit && '(Leave blank to keep current video)'}
-          </label>
-          <input
-            type="file"
-            id="video"
-            accept="video/*"
-            onChange={(e) => setVideoFile(e.target.files[0])}
-            required={!videoToEdit}
-          />
-          <div className="form-hint">Max size: 500MB</div>
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="thumbnail">
-            Thumbnail {videoToEdit && '(Leave blank to keep current thumbnail)'}
-          </label>
-          <input
-            type="file"
-            id="thumbnail"
-            accept="image/*"
-            onChange={handleThumbnailChange}
-            required={!videoToEdit}
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="video" className="form-label">
+              Video File {videoToEdit && <span className="optional-text">(optional)</span>}
+            </label>
+            <div className="file-input-wrapper">
+              <input
+                type="file"
+                id="video"
+                className="form-file-input"
+                accept="video/*"
+                onChange={(e) => setVideoFile(e.target.files[0])}
+                required={!videoToEdit}
+              />
+              <div className="file-input-display">
+                {videoFile ? videoFile.name : 'Select video file...'}
+              </div>
+            </div>
+            <div className="form-hint">Max size: 500MB</div>
+          </div>
           
-          {thumbnailPreview && (
+          <div className="form-group">
+            <label htmlFor="thumbnail" className="form-label">
+              Thumbnail {videoToEdit && <span className="optional-text">(optional)</span>}
+            </label>
+            <div className="file-input-wrapper">
+              <input
+                type="file"
+                id="thumbnail"
+                className="form-file-input"
+                accept="image/*"
+                onChange={handleThumbnailChange}
+                required={!videoToEdit}
+              />
+              <div className="file-input-display">
+                {thumbnail ? thumbnail.name : 'Select thumbnail...'}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {thumbnailPreview && (
+          <div className="form-group">
+            <label className="form-label">Thumbnail Preview</label>
             <div className="thumbnail-preview">
               <img 
                 src={thumbnailPreview} 
                 alt="Thumbnail preview"
               />
             </div>
-          )}
-        </div>
+          </div>
+        )}
         
         <button 
           type="submit" 

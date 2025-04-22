@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import VideoCard from '../components/VideoCard';
 import './Browse.css';
 
 function Browse() {
@@ -72,21 +72,12 @@ function Browse() {
                 <h2 className="genre-title">{genre}</h2>
               </div>
               
-              <div className="video-grid">
-                {videosByGenre[genre].map(video => (
-                  <Link key={video._id} to={`/watch/${video._id}`} className="video-card">
-                    <div className="thumbnail-container">
-                      <img 
-                        src={video.thumbnail} 
-                        alt={video.title}
-                        className="video-thumbnail"
-                      />
-                    </div>
-                    <div className="video-info">
-                      <h3 className="video-title">{video.title}</h3>
-                    </div>
-                  </Link>
-                ))}
+              <div className="video-carousel-container">
+                <div className="video-carousel">
+                  {videosByGenre[genre].map(video => (
+                    <VideoCard key={video._id} video={video} />
+                  ))}
+                </div>
               </div>
             </section>
           ))

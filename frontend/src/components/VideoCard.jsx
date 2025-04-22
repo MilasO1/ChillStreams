@@ -22,13 +22,13 @@ function VideoCard({ video }) {
   );
 }
 
-// VideoCard.propTypes = {
-//   video: PropTypes.shape({
-//     _id: PropTypes.string.isRequired,
-//     thumbnail: PropTypes.string.isRequired,
-//     title: PropTypes.string.isRequired,
-//     genre: PropTypes.string.isRequired
-//   }).isRequired
-// };
+VideoCard.propTypes = {
+  video: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired
+  }).isRequired
+ };
 
 export default VideoCard;
