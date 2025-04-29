@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
 import Loader from '../components/Loader';
@@ -7,21 +7,18 @@ import VideoCard from '../components/VideoCard';
 import './Browse.css';
 
 function Browse() {
-  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [genres, setGenres] = useState([]);
   const [videosByGenre, setVideosByGenre] = useState({});
 
-  useEffect(() => {
-    fetchVideos();
-  }, []);
+ 
 
-  const fetchVideos = async () => {
+  const fetchVideos = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await axiosInstance.get('/videos');
-      setVideos(data);
+
       
       const uniqueGenres = [...new Set(data.map(video => video.genre))];
       setGenres(uniqueGenres);
@@ -37,7 +34,11 @@ function Browse() {
       setError(err.response?.data?.message || 'Failed to fetch videos');
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchVideos();
+  }, [fetchVideos]);
 
   if (loading) return (
     <div className="browse-page">

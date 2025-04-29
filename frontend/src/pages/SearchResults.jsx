@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
@@ -15,13 +15,7 @@ function SearchResults() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (query) {
-      searchVideos();
-    }
-  }, [query]);
-
-  const searchVideos = async () => {
+  const searchVideos = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await axiosInstance.get('/videos');
@@ -38,7 +32,13 @@ function SearchResults() {
       setError(err.response?.data?.message || 'Failed to search videos');
       setLoading(false);
     }
-  };
+  }, [query]);
+
+  useEffect(() => {
+    if (query) {
+      searchVideos();
+    }
+  }, [query, searchVideos]);
 
   if (loading) return (
     <div className="search-page">

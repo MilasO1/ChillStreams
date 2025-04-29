@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
@@ -19,17 +19,8 @@ function UserProfile() {
   
   const navigate = useNavigate();
   
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-    
-    fetchUserProfile();
-  }, [navigate]);
   
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await axiosInstance.get('/users/profile');
@@ -49,7 +40,17 @@ function UserProfile() {
         setTimeout(() => navigate('/login'), 2000);
       }
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+    
+    fetchUserProfile();
+  }, [navigate, fetchUserProfile]);
   
   const handlePicChange = (e) => {
     const file = e.target.files[0];

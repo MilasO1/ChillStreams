@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
@@ -16,12 +16,8 @@ function WatchVideo() {
   const [relatedVideos, setRelatedVideos] = useState([]);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
-  useEffect(() => {
-    fetchVideo();
-    window.scrollTo(0, 0);
-  }, [id]);
 
-  const fetchVideo = async () => {
+  const fetchVideo = useCallback(async () => {
     try {
       setLoading(true);
       setIsPlayerReady(false);
@@ -39,7 +35,12 @@ function WatchVideo() {
       setError(err.response?.data?.message || 'Failed to fetch video');
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchVideo();
+    window.scrollTo(0, 0);
+  }, [id, fetchVideo]);
 
   const handlePlayerReady = () => {
     setIsPlayerReady(true);
