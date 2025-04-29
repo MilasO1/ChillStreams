@@ -55,48 +55,45 @@ function Register() {
           
           <form onSubmit={handleSubmit} className="register-form">
             <div className="form-group">
-              <label htmlFor="name">Full Name</label>
+              
               <input
                 type="text"
                 id="name"
                 value={name}
-                placeholder=""
+                placeholder="Name"
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
             
             <div className="form-group">
-              <label htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
                 value={email}
-                placeholder=""
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             
             <div className="form-group">
-              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
                 value={password}
-                placeholder=""
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
             
             <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 type="password"
                 id="confirmPassword"
                 value={confirmPassword}
-                placeholder=""
+                placeholder="Confirm Password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />

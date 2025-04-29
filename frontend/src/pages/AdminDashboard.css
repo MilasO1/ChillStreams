@@ -1,28 +1,14 @@
 /* AdminDashboard.css */
 .admin-dashboard {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-xl);
-    min-height: 100vh;
     background-color: var(--background);
-  }
-  
-  .admin-header {
-    grid-column: 1 / -1;
+    min-height: 100vh;
   }
   
   .admin-content {
-    grid-column: 2;
-  }
-  
-  @media (max-width: 768px) {
-    .admin-dashboard {
-      grid-template-columns: 1fr;
-      padding: var(--spacing-md);
-    }
-    
-    .admin-content {
-      grid-column: 1;
-    }
+    padding-top: 80px; /* To account for fixed header */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    padding-bottom: var(--spacing-xl);
   }

@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
 import userRoutes from './routes/userRoutes.js';
 import videoRoutes from './routes/videoRoutes.js'; 
 import { notFound, errorHandler } from './middlewares/errorHandler.js';
@@ -23,7 +22,7 @@ app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173' 
 }));
 app.use(express.json({ limit: '500mb' })); // Increased payload limit for video uploads
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '500mb' })); // Increased payload limit for video uploads
 app.use(cookieParser());
 
 

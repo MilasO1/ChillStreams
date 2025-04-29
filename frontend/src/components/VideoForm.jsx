@@ -40,24 +40,30 @@ function VideoForm({ videoToEdit }) {
       formData.append('description', description);
       formData.append('genre', genre);
       
+      // Important: Use the exact field names that multer expects
       if (videoFile) formData.append('video', videoFile);
       if (thumbnail) formData.append('thumbnail', thumbnail);
       
+      const config = {
+        headers: { 
+          'Content-Type': 'multipart/form-data',
+        },
+        // Add timeout if needed
+        timeout: 600000 // 10 minutes
+      };
+      
       if (videoToEdit) {
-        await axiosInstance.put(`/videos/${videoToEdit._id}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        await axiosInstance.put(`/videos/${videoToEdit._id}`, formData, config);
       } else {
-        await axiosInstance.post('/videos', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        await axiosInstance.post('/videos', formData, config);
       }
       
       setLoading(false);
       navigate('/admin');
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.message || 'An error occurred');
+      setError(err.response?.data?.message || err.message || 'An error occurred');
+      console.error('Upload error:', err);
     }
   };
   

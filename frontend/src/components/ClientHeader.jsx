@@ -18,6 +18,7 @@ function ClientHeader() {
         setScrolled(isScrolled);
       }
     };
+    
 
     window.addEventListener('scroll', handleScroll);
     return () => {
