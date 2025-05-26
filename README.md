@@ -176,4 +176,10 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## Contact
 
-Pour toute question ou suggestion, veuillez contacter l'équipe ChillStreams à [contact@chillstreams.com](mailto:contact@chillstreams.com).
+Pour toute question ou suggestion, veuillez contacter l'équipe ChillStreams à [contact@chillstreams.com](mailto:contact@chillstreams.com). 
+
+Competences à decouvrir : 
+-Application multicouche
+-Securité et script python
+-Deploiement AWS/Azure/Docker
+-Diagrammes (tous)

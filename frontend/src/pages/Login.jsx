@@ -1,7 +1,9 @@
+// Login.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
+import ReCAPTCHA from 'react-google-recaptcha';
 import './Login.css';
 
 function Login() {
@@ -9,11 +11,19 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [requires2FA, setRequires2FA] = useState(false);
+  const [userId, setUserId] = useState(null);
   
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!recaptchaToken) {
+      setError('Please complete the reCAPTCHA verification');
+      return;
+    }
     
     try {
       setLoading(true);
@@ -21,24 +31,42 @@ function Login() {
       
       const { data } = await axiosInstance.post('/users/login', {
         email,
-        password
+        password,
+        recaptchaToken
       });
       
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data));
-      
-      setLoading(false);
-      
-      // Check if the user is an admin and redirect accordingly
-      if (data.isAdmin) {
-        navigate('/admin');
+      // Check if 2FA is required
+      if (data.requires2FA) {
+        setRequires2FA(true);
+        setUserId(data.userId);
       } else {
-        navigate('/');
+        // Regular login
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data));
+        
+        // Check if the user is an admin and redirect accordingly
+        if (data.isAdmin) {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       }
       
+      setLoading(false);
     } catch (err) {
       setLoading(false);
       setError(err.response?.data?.message || 'Invalid credentials');
+    }
+  };
+
+  const handle2FASuccess = (data) => {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data));
+    
+    if (data.isAdmin) {
+      navigate('/admin');
+    } else {
+      navigate('/');
     }
   };
 
@@ -76,6 +104,19 @@ function Login() {
               <label htmlFor="password">Password</label>
             </div>
             
+            <div className="recaptcha-container">
+              {import.meta.env.VITE_RECAPTCHA_SITE_KEY ? (
+                <ReCAPTCHA
+                  sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setRecaptchaToken(token)}
+                />
+              ) : (
+                <div className="recaptcha-error">
+                  reCAPTCHA site key not configured. Please check your environment variables.
+                </div>
+              )}
+            </div>
+            
             <button 
               type="submit" 
               className="login-button"
@@ -90,6 +131,15 @@ function Login() {
           </form>
         </div>
       </div>
+      
+      {/* 2FA Modal */}
+      {requires2FA && (
+        <TwoFactorModal 
+          userId={userId}
+          onSuccess={handle2FASuccess}
+          onClose={() => setRequires2FA(false)}
+        />
+      )}
     </div>
   );
 }

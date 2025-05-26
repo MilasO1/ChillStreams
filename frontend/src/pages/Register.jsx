@@ -1,7 +1,9 @@
+// Register.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import ClientHeader from '../components/ClientHeader';
+import ReCAPTCHA from 'react-google-recaptcha';
 import './Register.css';
 
 function Register() {
@@ -11,6 +13,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState('');
   
   const navigate = useNavigate();
 
@@ -22,15 +25,31 @@ function Register() {
       return;
     }
     
+    if (!recaptchaToken) {
+      setError('Please complete the reCAPTCHA verification');
+      return;
+    }
+    
     try {
       setLoading(true);
       setError('');
       
+      // Log the data being sent for debugging
+      console.log('Sending registration data:', {
+        name,
+        email,
+        password: '[HIDDEN]',
+        recaptchaToken: recaptchaToken ? '[TOKEN_PROVIDED]' : '[NO_TOKEN]'
+      });
+      
       const { data } = await axiosInstance.post('/users/register', {
         name,
         email,
-        password
+        password,
+        recaptchaToken
       });
+      
+      console.log('Registration successful:', data);
       
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
@@ -40,7 +59,36 @@ function Register() {
       
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.message || 'Registration failed');
+      
+      // Enhanced error logging
+      console.error('Registration error:', err);
+      console.error('Error response:', err.response);
+      console.error('Error data:', err.response?.data);
+      console.error('Error status:', err.response?.status);
+      
+      // More detailed error handling
+      if (err.response?.data) {
+        const errorData = err.response.data;
+        
+        // Handle different error formats
+        if (typeof errorData === 'string') {
+          setError(errorData);
+        } else if (errorData.message) {
+          setError(errorData.message);
+        } else if (errorData.error) {
+          setError(errorData.error);
+        } else if (errorData.errors) {
+          // Handle validation errors array
+          const errorMessages = Array.isArray(errorData.errors) 
+            ? errorData.errors.map(e => e.msg || e.message || e).join(', ')
+            : JSON.stringify(errorData.errors);
+          setError(errorMessages);
+        } else {
+          setError('Registration failed - ' + JSON.stringify(errorData));
+        }
+      } else {
+        setError('Registration failed - Network error or server unavailable');
+      }
     }
   };
 
@@ -55,7 +103,6 @@ function Register() {
           
           <form onSubmit={handleSubmit} className="register-form">
             <div className="form-group">
-              
               <input
                 type="text"
                 id="name"
@@ -97,6 +144,19 @@ function Register() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
+            </div>
+            
+            <div className="recaptcha-container">
+              {import.meta.env.VITE_RECAPTCHA_SITE_KEY ? (
+                <ReCAPTCHA
+                  sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setRecaptchaToken(token)}
+                />
+              ) : (
+                <div className="recaptcha-error">
+                  reCAPTCHA site key not configured. Please check your environment variables.
+                </div>
+              )}
             </div>
             
             <button 
