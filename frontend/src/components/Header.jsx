@@ -32,7 +32,7 @@ function Header() {
               <Link to="/admin" className="admin-nav-link" onClick={() => setMenuOpen(false)}>Dashboard</Link>
             </li>
             <li className="admin-nav-item">
-              <Link to="/admin/videos" className="admin-nav-link" onClick={() => setMenuOpen(false)}>Videos</Link>
+              <Link to="/" className="admin-nav-link" onClick={() => setMenuOpen(false)}>Home</Link>
             </li>
             <li className="admin-nav-item">
               <Link to="/admin/videos/add" className="admin-nav-link primary" onClick={() => setMenuOpen(false)}>Add Video</Link>

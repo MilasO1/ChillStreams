@@ -71,7 +71,7 @@ function Home() {
     </div>
   );
 
-  const featuredVideo = videos.length > 0 ? videos[6] : null;
+  const featuredVideo = videos.length > 0 ? videos[16] : null;
   const videosByGenre = getVideosByGenre();
 
   return (
