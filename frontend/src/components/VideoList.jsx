@@ -84,7 +84,6 @@ function VideoList() {
           <table className="video-table">
             <thead>
               <tr>
-                <th>Thumbnail</th>
                 <th>Title</th>
                 <th>Genre</th>
                 <th>Created At</th>
@@ -94,13 +93,6 @@ function VideoList() {
             <tbody>
               {filteredVideos.map((video) => (
                 <tr key={video._id}>
-                  <td>
-                    <img 
-                      src={video.thumbnail} 
-                      alt={video.title} 
-                      className="video-thumbnail"
-                    />
-                  </td>
                   <td>{video.title}</td>
                   <td>{video.genre}</td>
                   <td>{new Date(video.createdAt).toLocaleDateString()}</td>

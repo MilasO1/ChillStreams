@@ -56,7 +56,7 @@ function UserProfile() {
     const file = e.target.files[0];
     if (!file) return;
     
-    // Validate file type and size
+    // file type and size
     if (!file.type.match('image.*')) {
       setError('Please select an image file (JPEG, PNG)');
       return;
@@ -88,7 +88,7 @@ function UserProfile() {
       setError('');
       setSuccess('');
 
-      // Validate password match if changing password
+      //  check password match if changing password
       if (password && password !== confirmPassword) {
         throw new Error('Passwords do not match');
       }

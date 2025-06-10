@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './ClientHeader.css';
 
-function ClientHeader() {
+function ClientHeader({ onLogout }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
   const isLoggedIn = !!localStorage.getItem('token');
 
    useEffect (() => {
@@ -19,7 +18,6 @@ function ClientHeader() {
       }
     };
     
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -34,9 +32,14 @@ function ClientHeader() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
+    if (onLogout) {
+      onLogout(); // Use the logout handler from parent
+    } else {
+      // fallback if no onLogout prop provided
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
   };
 
   const toggleMenu = () => {
@@ -50,14 +53,12 @@ function ClientHeader() {
   return (
     <header className={`client-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="client-header-container">
-        {/* Logo */}
         <div className="client-header-logo">
           <Link to="/">
             <h2>ChillStreams</h2>
           </Link>
         </div>
         
-        {/* Search Form */}
         <form className="client-search-form" onSubmit={handleSearch}>
           <input
             type="text"
@@ -70,7 +71,6 @@ function ClientHeader() {
           </button>
         </form>
         
-        {/* Burger Menu */}
         <button 
           className={`burger-menu-button ${menuOpen ? 'burger-menu-active' : ''}`} 
           onClick={toggleMenu}
@@ -83,7 +83,6 @@ function ClientHeader() {
           </div>
         </button>
         
-        {/* Navigation */}
         <div className={`client-nav-buttons ${menuOpen ? 'active' : ''}`}>
           <Link to="/browse" className="nav-button" onClick={handleNavClick}>
             Browse

@@ -1,4 +1,3 @@
-/* Browse.css */
 .browse-page {
     background-color: var(--background);
     min-height: 100vh;
@@ -67,7 +66,7 @@
     scroll-snap-align: start;
   }
   
-  /* Gradient fade effect at carousel edges */
+  /* fade effect at carousel edges */
   .video-carousel-container {
     position: relative;
   }
@@ -83,7 +82,6 @@
     pointer-events: none;
   }
   
-  /* Responsive Design */
   @media (min-width: 480px) {
     .video-carousel .video-card {
       flex: 0 0 calc(40% - var(--spacing-md));

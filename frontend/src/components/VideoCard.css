@@ -1,5 +1,3 @@
-/* VideoCard.css */
-
 .video-card {
   position: relative;
   border-radius: var(--radius-sm);
@@ -69,7 +67,7 @@
   border-radius: var(--radius-sm);
 }
 
-/* Responsive Design */
+
 @media (min-width: 768px) {
   .video-title {
     font-size: var(--font-size-lg);

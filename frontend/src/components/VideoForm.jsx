@@ -6,7 +6,7 @@ import './VideoForm.css';
 function VideoForm({ videoToEdit }) {
   const [title, setTitle] = useState(videoToEdit?.title || '');
   const [description, setDescription] = useState(videoToEdit?.description || '');
-  const [genre, setGenre] = useState(videoToEdit?.genre || 'Action');
+  const [genre, setGenre] = useState(videoToEdit?.genre || '');
   const [videoFile, setVideoFile] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,6 @@ function VideoForm({ videoToEdit }) {
       formData.append('description', description);
       formData.append('genre', genre);
       
-      // Important: Use the exact field names that multer expects
       if (videoFile) formData.append('video', videoFile);
       if (thumbnail) formData.append('thumbnail', thumbnail);
       
@@ -48,8 +47,7 @@ function VideoForm({ videoToEdit }) {
         headers: { 
           'Content-Type': 'multipart/form-data',
         },
-        // Add timeout if needed
-        timeout: 600000 // 10 minutes
+        timeout: 600000
       };
       
       if (videoToEdit) {
@@ -78,11 +76,10 @@ function VideoForm({ videoToEdit }) {
       <form onSubmit={handleSubmit} className="video-form">
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="title" className="form-label">Title</label>
             <input
               type="text"
-              id="title"
               className="form-input"
+              placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -90,14 +87,13 @@ function VideoForm({ videoToEdit }) {
           </div>
           
           <div className="form-group">
-            <label htmlFor="genre" className="form-label">Genre</label>
             <select
-              id="genre"
               className="form-input"
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
               required
             >
+              <option value="" disabled>Select genre</option>
               {genreOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -108,25 +104,23 @@ function VideoForm({ videoToEdit }) {
         </div>
         
         <div className="form-group">
-          <label htmlFor="description" className="form-label">Description</label>
           <textarea
-            id="description"
             className="form-textarea"
+            placeholder="Enter video description"
             rows="4"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+          />
         </div>
         
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="video" className="form-label">
+            <label className="form-label">
               Video File {videoToEdit && <span className="optional-text">(optional)</span>}
             </label>
             <div className="file-input-wrapper">
               <input
                 type="file"
-                id="video"
                 className="form-file-input"
                 accept="video/*"
                 onChange={(e) => setVideoFile(e.target.files[0])}
@@ -140,13 +134,12 @@ function VideoForm({ videoToEdit }) {
           </div>
           
           <div className="form-group">
-            <label htmlFor="thumbnail" className="form-label">
+            <label className="form-label">
               Thumbnail {videoToEdit && <span className="optional-text">(optional)</span>}
             </label>
             <div className="file-input-wrapper">
               <input
                 type="file"
-                id="thumbnail"
                 className="form-file-input"
                 accept="image/*"
                 onChange={handleThumbnailChange}

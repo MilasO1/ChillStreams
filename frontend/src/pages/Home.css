@@ -1,15 +1,12 @@
-/* Home.css */
-
 .home-page {
     background-color: var(--background);
     min-height: 100vh;
   }
   
   .home-content {
-    padding-top: 80px; /* Space for fixed header */
+    padding-top: 80px; /* space for fixed header */
   }
   
-  /* Hero Section */
   .hero-section {
     position: relative;
     height: 60vh;
@@ -112,7 +109,7 @@
     font-weight: bold;
   }
   
-  /* Video Carousel Sections - Horizontal Scrolling */
+  /* horizontal scroll carousel */
   .video-carousel-section {
     margin-bottom: var(--spacing-xl);
     padding: 0 var(--spacing-md);
@@ -132,7 +129,7 @@
     overflow-x: auto;
     padding-bottom: var(--spacing-md);
     scrollbar-width: none; /* Firefox */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
     scroll-snap-type: x mandatory;
   }
   
@@ -151,7 +148,7 @@
     pointer-events: none;
   }
   
-  /* Video Card sizing for carousel */
+  /* custom sizing for carousel, work in progress */
   .video-carousel .video-card {
     flex: 0 0 calc(90% - var(--spacing-md));
     max-width: calc(90% - var(--spacing-md));
@@ -160,7 +157,6 @@
     will-change: transform;
   }
   
-  /* Responsive Design */
   @media (min-width: 480px) {
     .video-carousel .video-card {
       flex: 0 0 calc(50% - var(--spacing-md));

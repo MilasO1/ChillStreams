@@ -35,16 +35,16 @@ function Login() {
         recaptchaToken
       });
       
-      // Check if 2FA is required
+      // check if 2FA is required, work in progress
       if (data.requires2FA) {
         setRequires2FA(true);
         setUserId(data.userId);
       } else {
-        // Regular login
+        // normal login
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data));
         
-        // Check if the user is an admin and redirect accordingly
+        // check if user = admin and redirect accordingly
         if (data.isAdmin) {
           navigate('/admin');
         } else {

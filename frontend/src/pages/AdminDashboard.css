@@ -1,11 +1,10 @@
-/* AdminDashboard.css */
 .admin-dashboard {
     background-color: var(--background);
     min-height: 100vh;
   }
   
   .admin-content {
-    padding-top: 80px; /* To account for fixed header */
+    padding-top: 80px; /* for fixed header */
     max-width: 1400px;
     margin: 0 auto;
     padding-left: var(--spacing-md);

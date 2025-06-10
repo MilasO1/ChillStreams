@@ -34,7 +34,7 @@ function Register() {
       setLoading(true);
       setError('');
       
-      // Log the data being sent for debugging
+      // Log data for debugging
       console.log('Sending registration data:', {
         name,
         email,
@@ -66,11 +66,11 @@ function Register() {
       console.error('Error data:', err.response?.data);
       console.error('Error status:', err.response?.status);
       
-      // More detailed error handling
+      // More detailed error handling, for testing
       if (err.response?.data) {
         const errorData = err.response.data;
         
-        // Handle different error formats
+        // for different error formats, work in progress
         if (typeof errorData === 'string') {
           setError(errorData);
         } else if (errorData.message) {

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosConfig';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ClientHeader from '../components/ClientHeader';
+import Header from '../components/Header';
 import VideoCard from '../components/VideoCard';
 import './Home.css';
 
@@ -13,9 +14,27 @@ function Home() {
   const [error, setError] = useState('');
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('All');
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchVideos();
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      fetchUserData();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    window.addEventListener('userLogout', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('userLogout', handleStorageChange);
+    };
   }, []);
 
   const fetchVideos = async () => {
@@ -24,7 +43,7 @@ function Home() {
       const { data } = await axiosInstance.get('/videos');
       setVideos(data);
       
-      // Extract unique genres from videos
+      // extract genres from videos
       const uniqueGenres = [...new Set(data.map(video => video.genre))];
       setGenres(['All', ...uniqueGenres]);
       
@@ -35,7 +54,33 @@ function Home() {
     }
   };
 
-  // Get videos grouped by genre 
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const { data } = await axiosInstance.get('/users/profile');
+        setUser(data);
+      } else {
+        setUser(null); // clear user state if no token
+      }
+    } catch (err) {
+      console.error('Failed to fetch user data:', err);
+      setUser(null); // clear user state on error
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null); // clear user state
+    
+    // dispatch logout event to notify the headers
+    window.dispatchEvent(new Event('userLogout'));
+    
+    navigate('/login');
+  };
+
+  // grouped by genre 
   const getVideosByGenre = () => {
     const videosByGenre = {};
     
@@ -48,14 +93,14 @@ function Home() {
     return videosByGenre;
   };
 
-  // Filter videos when a specific genre is selected
+  // filter videos for a specific genre 
   const filteredVideos = selectedGenre === 'All' 
     ? videos 
     : videos.filter(video => video.genre === selectedGenre);
 
   if (loading) return (
     <div className="home-page">
-      <ClientHeader />
+      {user && user.isAdmin ? <Header onLogout={handleLogout} /> : <ClientHeader onLogout={handleLogout} />}
       <main className="home-content">
         <Loader />
       </main>
@@ -64,21 +109,20 @@ function Home() {
 
   if (error) return (
     <div className="home-page">
-      <ClientHeader />
+      {user && user.isAdmin ? <Header onLogout={handleLogout} /> : <ClientHeader onLogout={handleLogout} />}
       <main className="home-content">
         <Message variant="danger">{error}</Message>
       </main>
     </div>
   );
 
-  const featuredVideo = videos.length > 0 ? videos[16] : null;
+  const featuredVideo = videos.length > 0 ? videos[18] : null;
   const videosByGenre = getVideosByGenre();
 
   return (
     <div className="home-page">
-      <ClientHeader />
+      {user && user.isAdmin ? <Header onLogout={handleLogout} /> : <ClientHeader onLogout={handleLogout} />}
       <main className="home-content">
-        {/* Hero Section - Reduced height */}
         {featuredVideo && (
           <section className="hero-section">
             <div className="hero-container">
