@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get the base URL and log it for debugging
-const baseURL = import.meta.env.VITE_API_URL || 'https://chillstreams.onrender.com/api';
+const baseURL = 'https://chillstreams.onrender.com/api';
 console.log('Axios baseURL being used:', baseURL);
 
 const axiosInstance = axios.create({
