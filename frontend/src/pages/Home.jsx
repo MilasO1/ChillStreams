@@ -224,6 +224,10 @@ const fetchVideos = async () => {
           ))
         )}
       </main>
+      <button onClick={() => {
+  console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+  console.log('All env vars:', import.meta.env);
+}}>Debug ENV</button>
     </div>
   );
 }
