@@ -1,11 +1,7 @@
 import axios from 'axios';
 
-// Get the base URL and log it for debugging
-const baseURL = 'https://chillstreams.onrender.com/api';
-console.log('Axios baseURL being used:', baseURL);
-
 const axiosInstance = axios.create({
-  baseURL: baseURL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,7 +10,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log('Making request to:', config.baseURL + config.url);
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

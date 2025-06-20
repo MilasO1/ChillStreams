@@ -37,55 +37,22 @@ function Home() {
     };
   }, []);
 
-  // const fetchVideos = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const { data } = await axiosInstance.get('/videos');
-  //     setVideos(data);
+  const fetchVideos = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axiosInstance.get('/videos');
+      setVideos(data);
       
-  //     // extract genres from videos
-  //     const uniqueGenres = [...new Set(data.map(video => video.genre))];
-  //     setGenres(['All', ...uniqueGenres]);
+      // extract genres from videos
+      const uniqueGenres = [...new Set(data.map(video => video.genre))];
+      setGenres(['All', ...uniqueGenres]);
       
-  //     setLoading(false);
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || 'Failed to fetch videos');
-  //     setLoading(false);
-  //   }
-  // };
-
-  // Add this debugging version of fetchVideos temporarily
-
-const fetchVideos = async () => {
-  try {
-    setLoading(true);
-    
-    // Debug logs
-    console.log('VITE_API_URL from env:', import.meta.env.VITE_API_URL);
-    console.log('Making request to: /videos');
-    console.log('Full URL should be:', import.meta.env.VITE_API_URL + '/videos');
-    
-    const { data } = await axiosInstance.get('/videos');
-    console.log('Request successful, data:', data);
-    
-    setVideos(data);
-    
-    // extract genres from videos
-    const uniqueGenres = [...new Set(data.map(video => video.genre))];
-    setGenres(['All', ...uniqueGenres]);
-    
-    setLoading(false);
-  } catch (err) {
-    console.error('Request failed with error:', err);
-    console.error('Error response:', err.response);
-    console.error('Error status:', err.response?.status);
-    console.error('Error data:', err.response?.data);
-    console.error('Request config:', err.config);
-    
-    setError(err.response?.data?.message || 'Failed to fetch videos');
-    setLoading(false);
-  }
-};
+      setLoading(false);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to fetch videos');
+      setLoading(false);
+    }
+  };
 
   const fetchUserData = async () => {
     try {
@@ -224,10 +191,6 @@ const fetchVideos = async () => {
           ))
         )}
       </main>
-      <button onClick={() => {
-  console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
-  console.log('All env vars:', import.meta.env);
-}}>Debug ENV</button>
     </div>
   );
 }
