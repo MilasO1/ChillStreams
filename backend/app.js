@@ -16,7 +16,7 @@ connectDB();
 const app = express();
 
 const allowedOrigins = [
-  'http://localhost:5173',
+  'https://chill-streams.vercel.app/',
 ]
 // Middlewares
 app.use(morganMiddleware);
