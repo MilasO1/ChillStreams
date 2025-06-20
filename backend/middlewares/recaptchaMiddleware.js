@@ -23,23 +23,31 @@ const verifyRecaptcha = asyncHandler(async (req, res, next) => {
             }
         );
 
-        const { success, score, action } = response.data;
+        const { success, 'error-codes': errorCodes } = response.data;
 
-        // For reCAPTCHA v3, check score (0.0 to 1.0, higher is more likely human)
-        // For reCAPTCHA v2, just check success
-        if (!success || (score && score < 0.5)) {
+        // For reCAPTCHA v2, we only need to check success
+        if (!success) {
+            console.error('reCAPTCHA verification failed:', errorCodes);
             res.status(400);
             throw new Error('reCAPTCHA verification failed. Please try again.');
         }
 
         // Log for monitoring
-        console.log(`reCAPTCHA verification successful. Score: ${score}, Action: ${action}`);
+        console.log('reCAPTCHA v2 verification successful');
         
         next();
     } catch (error) {
-        console.error('reCAPTCHA verification error:', error.message);
-        res.status(500);
-        throw new Error('reCAPTCHA verification service unavailable');
+        if (error.response) {
+            // Error from Google's API
+            console.error('reCAPTCHA API error:', error.response.data);
+            res.status(400);
+            throw new Error('reCAPTCHA verification failed');
+        } else {
+            // Network or other error
+            console.error('reCAPTCHA verification error:', error.message);
+            res.status(500);
+            throw new Error('reCAPTCHA verification service unavailable');
+        }
     }
 });
 
