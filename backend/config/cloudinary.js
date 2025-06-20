@@ -24,7 +24,7 @@ const uploadToCloudinary = async (localFilePath) => {
       timeout: 300000, // 5 min timeout
       use_filename: true,
       unique_filename: true,
-      // Optional progress monitoring
+      // Optional progress monitoring, work in progress (literally)
       onProgress: (progress) => {
       console.log(`Progress: ${progress.percent}%`);
       }

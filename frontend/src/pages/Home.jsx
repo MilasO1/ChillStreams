@@ -74,7 +74,7 @@ function Home() {
     localStorage.removeItem('user');
     setUser(null); // clear user state
     
-    // dispatch logout event to notify the headers
+    // dispatch logout event to the headers
     window.dispatchEvent(new Event('userLogout'));
     
     navigate('/login');
