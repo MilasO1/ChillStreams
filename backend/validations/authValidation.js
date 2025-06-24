@@ -39,24 +39,3 @@ export const loginValidation = [
         .withMessage('reCAPTCHA verification is required')
 ];
 
-export const twoFactorValidation = [
-    body('token')
-        .optional()
-        .isLength({ min: 6, max: 6 })
-        .withMessage('Two-factor token must be 6 digits')
-        .isNumeric()
-        .withMessage('Two-factor token must be numeric'),
-    
-    body('backupCode')
-        .optional()
-        .isLength({ min: 8, max: 8 })
-        .withMessage('Backup code must be 8 characters')
-        .isAlphanumeric()
-        .withMessage('Backup code must be alphanumeric'),
-    
-    body('userId')
-        .notEmpty()
-        .withMessage('User ID is required')
-        .isMongoId()
-        .withMessage('Invalid user ID format')
-];

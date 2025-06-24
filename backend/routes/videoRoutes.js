@@ -11,11 +11,11 @@ import upload from '../middlewares/multerMiddleware.js';
 
 const router = express.Router();
 
-// Public routes
+// public routes
 router.get('/', getVideos);
 router.get('/:id', getVideoById);
 
-// Admin routes
+// admin routes
 router.post('/', protect, admin, upload.fields([
   { name: 'video', maxCount: 1 },
   { name: 'thumbnail', maxCount: 1 }

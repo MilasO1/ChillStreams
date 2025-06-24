@@ -16,16 +16,16 @@ import { validateRequest } from '../middlewares/validateRequest.js';
 
 const router = express.Router();
 
-// Public routes
+// public routes
 router.post('/register', registerValidation, validateRequest, registerUser);
 router.post('/login', loginValidation, validateRequest, loginUser);
 router.post('/logout', logoutUser);
 
-// Protected routes
+// protected routes
 router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, upload.single('pic'), updateUser);
 
-// Admin-only routes
+// admin routes
 router.get('/users', protect, admin, getAllUsers);
 router.get('/users/:id', protect, admin, getUserById);
 router.delete('/users/:id', protect, admin, deleteUser);
