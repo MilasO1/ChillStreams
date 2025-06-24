@@ -10,7 +10,7 @@ import morganMiddleware from './middlewares/morganMiddleware.js';
 
 dotenv.config();
 
-// db connection
+// Database connection
 connectDB();
 
 const app = express();

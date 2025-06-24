@@ -1,5 +1,6 @@
 import rateLimit from 'express-rate-limit';
 
+// General rate limiting
 export const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // Limit each IP to 100 requests per windowMs
@@ -10,7 +11,7 @@ export const generalLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-
+// Strict rate limiting for authentication endpoints
 export const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5, // Limit each IP to 5 login attempts per windowMs
@@ -19,10 +20,11 @@ export const authLimiter = rateLimit({
     },
     standardHeaders: true,
     legacyHeaders: false,
+    // Skip successful requests
     skipSuccessfulRequests: true,
 });
 
-// very strict rate limiting, wip
+// Very strict rate limiting for 2FA attempts
 export const twoFactorLimiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 3, // Limit each IP to 3 2FA attempts per windowMs
@@ -33,7 +35,7 @@ export const twoFactorLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-
+// Rate limiting for registration
 export const registerLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 3, // Limit each IP to 3 registration attempts per hour

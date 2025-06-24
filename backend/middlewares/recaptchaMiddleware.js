@@ -10,7 +10,7 @@ const verifyRecaptcha = asyncHandler(async (req, res, next) => {
     }
 
     try {
-        
+        // Verify reCAPTCHA with Google's API
         const response = await axios.post(
             'https://www.google.com/recaptcha/api/siteverify',
             null,
@@ -25,22 +25,25 @@ const verifyRecaptcha = asyncHandler(async (req, res, next) => {
 
         const { success, 'error-codes': errorCodes } = response.data;
 
-        // reCAPTCHA v2 only check success
+        // For reCAPTCHA v2, we only need to check success
         if (!success) {
             console.error('reCAPTCHA verification failed:', errorCodes);
             res.status(400);
             throw new Error('reCAPTCHA verification failed. Please try again.');
         }
+
+        // Log for monitoring
+        console.log('reCAPTCHA v2 verification successful');
         
         next();
     } catch (error) {
         if (error.response) {
-            // error from Google's API
+            // Error from Google's API
             console.error('reCAPTCHA API error:', error.response.data);
             res.status(400);
             throw new Error('reCAPTCHA verification failed');
         } else {
-            // network or other error
+            // Network or other error
             console.error('reCAPTCHA verification error:', error.message);
             res.status(500);
             throw new Error('reCAPTCHA verification service unavailable');
