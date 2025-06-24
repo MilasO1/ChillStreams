@@ -19,12 +19,12 @@ const uploadToCloudinary = async (localFilePath) => {
     }
 
     const response = await cloudinary.uploader.upload(localFilePath, {
-      resource_type: "auto", // Automatically detects image/video
+      resource_type: "auto", // automatically detects image/video
       chunk_size: 10000000, // 10MB chunks
       timeout: 300000, // 5 min timeout
       use_filename: true,
       unique_filename: true,
-      // Optional progress monitoring, work in progress (literally)
+      // optional progress monitoring, work in progress (literally)
       onProgress: (progress) => {
       console.log(`Progress: ${progress.percent}%`);
       }
