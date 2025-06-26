@@ -174,7 +174,7 @@ function WatchVideo() {
     window.scrollTo(0, 0);
   }, [fetchVideoData]);
 
-  // Memoized related videos calculation
+  // memoized videos calculation
   const relatedVideos = useMemo(() => {
     if (!video || !allVideos.length) return [];
     return allVideos
