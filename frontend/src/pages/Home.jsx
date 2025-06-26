@@ -84,6 +84,7 @@ function Home() {
   const getVideosByGenre = () => {
     const videosByGenre = {};
     
+    //To do : query search via mongodb in the backend
     genres.forEach(genre => {
       if (genre !== 'All') {
         videosByGenre[genre] = videos.filter(video => video.genre === genre);
@@ -161,7 +162,7 @@ function Home() {
           </div>
         </section>
 
-        {/* Show genre-specific videos when a genre is selected */}
+        {/* show genre-specific videos when a genre is selected */}
         {selectedGenre !== 'All' ? (
           <section className="video-carousel-section">
             <h2 className="section-title">{selectedGenre}</h2>
@@ -176,7 +177,7 @@ function Home() {
             )}
           </section>
         ) : (
-          /* Netflix-style rows - Always show all genres when "All" is selected */
+          /* show all genres when "All" is selected */
           Object.entries(videosByGenre).map(([genre, genreVideos]) => (
             genreVideos.length > 0 && (
               <section key={genre} className="video-carousel-section category-row">

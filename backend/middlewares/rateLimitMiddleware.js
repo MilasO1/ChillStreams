@@ -24,7 +24,7 @@ export const authLimiter = rateLimit({
     skipSuccessfulRequests: true,
 });
 
-
+//WIP
 export const twoFactorLimiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 3, // Limit each IP to 3 2FA attempts per windowMs

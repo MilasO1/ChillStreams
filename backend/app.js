@@ -35,12 +35,12 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/users', userRoutes);
 app.use('/api/videos', videoRoutes); 
 
-// Health check endpoint
+// health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK' });
 });
 
-// Error handling
+// error handling
 app.use(notFound);
 app.use(errorHandler);
 

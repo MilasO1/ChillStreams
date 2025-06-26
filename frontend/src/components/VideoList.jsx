@@ -75,8 +75,8 @@ function VideoList() {
       {filteredVideos.length === 0 ? (
         <Message>
           {searchTerm ? 
-            'No videos match your search. Try different keywords.' : 
-            'No videos found. Add your first video!'
+            'No videos match your search. Try different keywords' : 
+            'No videos found. Add your first video'
           }
         </Message>
       ) : (
