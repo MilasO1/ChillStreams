@@ -9,9 +9,7 @@ function Footer() {
       <div className="copyright-container">
         <span>© {currentYear} Chillstreams. All rights reserved.</span>
         <div className="legal-links">
-          <Link to="/privacy">Privacy</Link>
-          <span> • </span>
-          <Link to="/terms">Terms</Link>
+          <Link to="/terms">General Conditions of Use</Link>
         </div>
       </div>
     </footer>
