@@ -9,7 +9,6 @@ import UserProfile from './pages/UserProfile';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminVideoAdd from './pages/AdminVideoAdd';
 import AdminVideoEdit from './pages/AdminVideoEdit';
-import VideoDetails from './pages/VideoDetails';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import PrivateRoute from './components/PrivateRoute';
