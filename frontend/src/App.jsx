@@ -31,7 +31,6 @@ function App() {
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         <Route path="/admin/videos/add" element={<PrivateRoute><AdminVideoAdd /></PrivateRoute>} />
         <Route path="/admin/videos/edit/:id" element={<PrivateRoute><AdminVideoEdit /></PrivateRoute>} />
-        <Route path="/video/:id" element={<PrivateRoute><VideoDetails /></PrivateRoute>} />
         
         {/* Auth routes */}
         <Route path="/login" element={<Login />} />
