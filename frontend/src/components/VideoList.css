@@ -124,15 +124,6 @@
   text-align: center;
 }
 
-.action-button.view {
-  background-color: var(--medium-gray);
-  color: var(--white);
-}
-
-.action-button.view:hover {
-  background-color: #555;
-}
-
 .action-button.edit {
   background-color: var(--primary-green);
   color: var(--white);

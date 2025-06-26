@@ -99,12 +99,6 @@ function VideoList() {
                   <td>
                     <div className="video-actions">
                       <Link 
-                        to={`/video/${video._id}`} 
-                        className="action-button view"
-                      >
-                        View
-                      </Link>
-                      <Link 
                         to={`/admin/videos/edit/${video._id}`} 
                         className="action-button edit"
                       >
