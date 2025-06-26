@@ -1,20 +1,25 @@
 import { Link } from 'react-router-dom';
-import './Footer.css';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="app-footer">
-        {/* Copyright Section */}
-        <div className="footer-bottom">
-          <div className="copyright">
-            &copy; {currentYear} Chillstreams. All rights reserved.
-          </div>
-          <div className="legal-links">
-            <Link to="/privacy">Privacy Policy</Link> | <Link to="/terms">Terms of Service</Link>
-          </div>
+      <div className="footer-content">
+        <div className="copyright">
+          <span>© {currentYear} Chillstreams</span>
+          <span className="separator">•</span>
+          <span>All rights reserved</span>
         </div>
+        
+        <nav className="legal-links">
+          <Link to="/privacy" className="legal-link">Privacy Policy</Link>
+          <span className="separator">•</span>
+          <Link to="/terms" className="legal-link">Terms of Service</Link>
+          <span className="separator">•</span>
+          <Link to="/cookies" className="legal-link">Cookie Policy</Link>
+        </nav>
+      </div>
     </footer>
   );
 }
