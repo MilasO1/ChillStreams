@@ -124,74 +124,49 @@ function Home() {
     <div className="home-page">
       {user && user.isAdmin ? <Header onLogout={handleLogout} /> : <ClientHeader onLogout={handleLogout} />}
       <main className="home-content">
-        {featuredVideo && (
-          <section className="hero-section">
-            <div className="hero-container">
-              <img 
-                src={featuredVideo.thumbnail} 
-                alt={featuredVideo.title}
-                className="hero-image"
-              />
-              <div className="hero-overlay">
-                <h1 className="hero-title">{featuredVideo.title}</h1>
-                <p className="hero-description">
-                  {featuredVideo.description.length > 100 
-                    ? `${featuredVideo.description.substring(0, 100)}...` 
-                    : featuredVideo.description}
-                </p>
-                <Link to={`/watch/${featuredVideo._id}`} className="hero-button">
-                  Watch Now
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
+  <article className="hero-section">
+    <figure className="hero-container">
+      <img src={featuredVideo.thumbnail} alt={featuredVideo.title} />
+      <figcaption className="hero-overlay">
+        <h1>{featuredVideo.title}</h1>
+        <p>{featuredVideo.description}</p>
+        <Link to={`/watch/${featuredVideo._id}`}>Watch Now</Link>
+      </figcaption>
+    </figure>
+  </article>
 
-        {/* Genre Filter */}
-        <section className="genre-filter">
-          <div className="filter-container">
-            {genres.map(genre => (
-              <button 
-                key={genre}
-                onClick={() => setSelectedGenre(genre)}
-                className={`filter-button ${selectedGenre === genre ? 'active' : ''}`}
-              >
-                {genre}
-              </button>
+  <nav className="genre-filter" aria-label="Video genres">
+    {/* genre buttons */}
+  </nav>
+
+  {selectedGenre !== 'All' ? (
+    <section aria-labelledby="genre-heading">
+      <h2 id="genre-heading">{selectedGenre}</h2>
+      <div role="list" className="video-carousel">
+        {filteredVideos.map(video => (
+          <article role="listitem" key={video._id}>
+            <VideoCard video={video} />
+          </article>
+        ))}
+      </div>
+    </section>
+  ) : (
+    Object.entries(videosByGenre).map(([genre, genreVideos]) => (
+      genreVideos.length > 0 && (
+        <section key={genre} aria-labelledby={`${genre}-heading`}>
+          <h2 id={`${genre}-heading`}>{genre}</h2>
+          <div role="list" className="video-carousel">
+            {genreVideos.map(video => (
+              <article role="listitem" key={video._id}>
+                <VideoCard video={video} />
+              </article>
             ))}
           </div>
         </section>
-
-        {/* show genre-specific videos when a genre is selected */}
-        {selectedGenre !== 'All' ? (
-          <section className="video-carousel-section">
-            <h2 className="section-title">{selectedGenre}</h2>
-            {filteredVideos.length === 0 ? (
-              <Message>No videos found in this category.</Message>
-            ) : (
-              <div className="video-carousel">
-                {filteredVideos.map(video => (
-                  <VideoCard key={video._id} video={video} />
-                ))}
-              </div>
-            )}
-          </section>
-        ) : (
-          /* show all genres when "All" is selected */
-          Object.entries(videosByGenre).map(([genre, genreVideos]) => (
-            genreVideos.length > 0 && (
-              <section key={genre} className="video-carousel-section category-row">
-                <h2 className="section-title">{genre}</h2>
-                <div className="video-carousel">
-                  {genreVideos.map(video => (
-                    <VideoCard key={video._id} video={video} />
-                  ))}
-                </div>
-              </section>
-            )
-          ))
-        )}
-      </main>
+      )
+    )))
+  }
+</main>
     </div>
   );
 }
