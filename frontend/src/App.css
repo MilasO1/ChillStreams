@@ -94,6 +94,21 @@ img {
   display: none;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Hide footer on admin and auth pages */
+.admin-page .app-footer,
+.auth-page .app-footer {
+  display: none;
+}
 
 /* tablet and above */
 @media (min-width: 768px) {
