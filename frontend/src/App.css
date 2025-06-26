@@ -1,28 +1,25 @@
-/* global.css */
-
-/* Reset and Base Styles */
 :root {
-  /* Main color palette */
+  /* main palette */
   --primary-green: #0a9e5c;
   --primary-green-hover: #0fb76a;
   --dark-green: #086e40;
   --light-green: #6de0a9;
   --mint-green: #c4f4db;
 
-  /* Neutral colors */
+  /* neutrals */
   --black: #141414;
   --dark-gray: #181818;
   --medium-gray: #333333;
   --light-gray: #808080;
   --white: #ffffff;
 
-  /* UI colors */
+  /* ui*/
   --background: #0b0b0b;
   --card-bg: #1f1f1f;
   --overlay: rgba(0, 0, 0, 0.75);
   --divider: #2d2d2d;
 
-  /* Typography */
+  /* fontsss */
   --font-family: 'Helvetica Neue', Arial, sans-serif;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
@@ -30,7 +27,7 @@
   --font-size-xl: 1.5rem;
   --font-size-xxl: 2rem;
 
-  /* Spacing */
+  /* s p a c i n g */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -38,12 +35,12 @@
   --spacing-xl: 2rem;
   --spacing-xxl: 3rem;
 
-  /* Border radius */
+  /* br radiuses */
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 8px;
 
-  /* Transitions */
+  /* transitions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
@@ -82,7 +79,6 @@ img {
   height: auto;
 }
 
-/* Utility Classes */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -98,24 +94,22 @@ img {
   display: none;
 }
 
-/* Media Queries for Responsive Design */
-/* Mobile (default) */
 
-/* Tablet and above */
+/* tablet and above */
 @media (min-width: 768px) {
   .container {
     padding: 0 var(--spacing-lg);
   }
 }
 
-/* Desktop */
+/* desktop */
 @media (min-width: 1024px) {
   .container {
     padding: 0 var(--spacing-xl);
   }
 }
 
-/* Large Desktop */
+/* big desktop */
 @media (min-width: 1440px) {
   .container {
     max-width: 1400px;
