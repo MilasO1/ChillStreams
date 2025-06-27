@@ -316,7 +316,7 @@ function UserProfile() {
           
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="form-group">
-              <label htmlFor="name" className="input-label">Name</label>
+              <label htmlFor="name" className="input-label"></label>
               <input
                 type="text"
                 id="name"
@@ -330,7 +330,7 @@ function UserProfile() {
             </div>
             
             <div className="form-group">
-              <label htmlFor="email" className="input-label">Email</label>
+              <label htmlFor="email" className="input-label"></label>
               <input
                 type="email"
                 id="email"
@@ -345,7 +345,6 @@ function UserProfile() {
             
             <div className="form-group">
               <label htmlFor="password" className="input-label">
-                New Password (leave blank to keep current)
               </label>
               <input
                 type="password"
@@ -363,7 +362,7 @@ function UserProfile() {
 
             {formData.password && (
               <div className="form-group">
-                <label htmlFor="confirmPassword" className="input-label">Confirm New Password</label>
+                <label htmlFor="confirmPassword" className="input-label"></label>
                 <input
                   type="password"
                   id="confirmPassword"
@@ -392,7 +391,7 @@ function UserProfile() {
               ) : (
                 <>
                   Update Profile
-                  {hasChanges() && <span className="changes-indicator">*</span>}
+                  {hasChanges() && <span className="changes-indicator"></span>}
                 </>
               )}
             </button>
