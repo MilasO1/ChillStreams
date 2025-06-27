@@ -84,7 +84,7 @@ function Home() {
   const getVideosByGenre = () => {
     const videosByGenre = {};
     
-    //look into : query search via mongodb in the backend
+    //look : query search via mongodb in the backend
     genres.forEach(genre => {
       if (genre !== 'All') {
         videosByGenre[genre] = videos.filter(video => video.genre === genre);
