@@ -59,6 +59,7 @@ function Login() {
     }
   };
 
+  //placeholder for now, keeping this logic, gotta work on backend
   const handle2FASuccess = (data) => {
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
