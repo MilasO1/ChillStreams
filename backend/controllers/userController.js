@@ -1,5 +1,7 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import User from '../models/User.js';
+import fs from 'fs';
+import path from 'path';
 
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
@@ -80,16 +82,51 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    if (user) {
+    if (!user) {
+        res.status(404);
+        throw new Error('User not found');
+    }
+
+    // Store old profile pic path for cleanup
+    const oldPicPath = user.pic;
+    const defaultPic = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+
+    try {
+        // Update basic fields
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
-        user.pic = req.body.pic || user.pic;
         
-        if (req.body.password) {
+        // Handle profile picture update
+        if (req.file) {
+            // New image uploaded
+            const imageUrl = `/uploads/${req.file.filename}`;
+            user.pic = imageUrl;
+            
+            // Clean up old image file (if it's not the default image and exists locally)
+            if (oldPicPath && 
+                oldPicPath !== defaultPic && 
+                !oldPicPath.startsWith('http') && 
+                oldPicPath.startsWith('/uploads/')) {
+                
+                const oldFilePath = path.join(process.cwd(), 'uploads', path.basename(oldPicPath));
+                try {
+                    if (fs.existsSync(oldFilePath)) {
+                        fs.unlinkSync(oldFilePath);
+                    }
+                } catch (cleanupError) {
+                    console.error('Error cleaning up old profile image:', cleanupError);
+                    // Don't throw error for cleanup failure
+                }
+            }
+        }
+        
+        // Handle password update
+        if (req.body.password && req.body.password.trim() !== '') {
             user.password = req.body.password;
         }
 
         const updatedUser = await user.save();
+        
         res.json({
             _id: updatedUser._id,
             name: updatedUser.name,
@@ -98,9 +135,20 @@ const updateUser = asyncHandler(async (req, res) => {
             isAdmin: updatedUser.isAdmin,
             message: 'Profile updated successfully',
         });
-    } else {
-        res.status(404);
-        throw new Error('User not found');
+        
+    } catch (error) {
+        // If something goes wrong and we uploaded a new file, clean it up
+        if (req.file) {
+            const newFilePath = path.join(process.cwd(), 'uploads', req.file.filename);
+            try {
+                if (fs.existsSync(newFilePath)) {
+                    fs.unlinkSync(newFilePath);
+                }
+            } catch (cleanupError) {
+                console.error('Error cleaning up uploaded file after error:', cleanupError);
+            }
+        }
+        throw error;
     }
 });
 
@@ -115,6 +163,24 @@ const deleteUser = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error('User not found');
     }
+    
+    // Clean up user's profile image before deletion
+    const defaultPic = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
+    if (user.pic && 
+        user.pic !== defaultPic && 
+        !user.pic.startsWith('http') && 
+        user.pic.startsWith('/uploads/')) {
+        
+        const filePath = path.join(process.cwd(), 'uploads', path.basename(user.pic));
+        try {
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+        } catch (cleanupError) {
+            console.error('Error cleaning up user profile image:', cleanupError);
+        }
+    }
+    
     await user.deleteOne();
     res.json({ message: 'User removed successfully' });
 });
@@ -138,7 +204,5 @@ export {
     deleteUser,
     getUserById
 };
-
-
 
 
