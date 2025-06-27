@@ -157,10 +157,8 @@ L'authentification utilise JSON Web Tokens (JWT). Les tokens sont envoyés via :
 npm run build
 ```
 
-### Hébergement recommandé
-- Heroku
-- DigitalOcean
-- AWS
+### Hébergement
+- https://chill-streams.vercel.app/
 
 ## Contribution
 
